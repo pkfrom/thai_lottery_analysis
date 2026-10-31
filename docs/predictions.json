@@ -1,7 +1,7 @@
 {
   "target_date": "2026-11-01",
   "target_date_th": "วันอาทิตย์ที่ 1 พฤศจิกายน 2569",
-  "last_update": "2026-11-01 02:56:43 UTC+7",
+  "last_update": "2026-11-01 02:57:21 UTC+7",
   "total_draws": 397,
   "history_start": "2010-03-01",
   "history_end": "2026-10-16",
@@ -125,6 +125,14 @@
       "tail_2digit": "04"
     },
     {
+      "number": "804",
+      "composite_score": 85.0,
+      "day_freq": 1,
+      "seasonal_freq": 1,
+      "overall_freq": 2,
+      "tail_2digit": "04"
+    },
+    {
       "number": "106",
       "composite_score": 85.0,
       "day_freq": 1,
@@ -212,14 +220,14 @@
       "overall_freq": 2
     },
     {
-      "number": "106",
+      "number": "913",
       "composite_score": 65.0,
       "day_freq": 1,
       "seasonal_freq": 1,
       "overall_freq": 2
     },
     {
-      "number": "323",
+      "number": "328",
       "composite_score": 65.0,
       "day_freq": 1,
       "seasonal_freq": 1,
@@ -242,7 +250,7 @@
       "overall_freq": 4
     },
     {
-      "number": "245",
+      "number": "752",
       "composite_score": 52.0,
       "day_freq": 1,
       "seasonal_freq": 1,
