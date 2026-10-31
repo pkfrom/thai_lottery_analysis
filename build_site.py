@@ -67,7 +67,6 @@ def evaluate_past_draw(df):
     history_day = history[history["day_name"] == target_day]
     history_sea = history[history["month_day"] == target_md]
 
-    # Actual results
     actual_fp = last_row["first_prize"]
     actual_top3 = last_row["first_prize"][-3:]
     actual_top2 = last_row["first_prize"][-2:]
@@ -75,7 +74,6 @@ def evaluate_past_draw(df):
     actual_front3 = [x.strip() for x in str(last_row["front_three_digits"]).split(";") if x.strip()]
     actual_last3 = [x.strip() for x in str(last_row["last_three_digits"]).split(";") if x.strip()]
 
-    # Run predictions on history prior to this draw
     df_b2 = calculate_2digit_scores(df, target_date_str, target_col="bottom2")
     df_t2 = calculate_2digit_scores(df, target_date_str, target_col="top2")
 
@@ -102,7 +100,6 @@ def evaluate_past_draw(df):
         "first_prize": {
             "actual": actual_fp,
             "predicted_top1": top_pred_fp,
-            "status": "เข้าหลักสิบ/หน่วย" if (actual_fp[-2:] in df_t2.head(10)["number"].values) else "ไม่ตรง"
         },
         "top3": {
             "actual": actual_top3,
@@ -111,17 +108,17 @@ def evaluate_past_draw(df):
         },
         "top2": {
             "actual": actual_top2,
-            "rank": b2_rank,
+            "rank": t2_rank,
             "score": t2_score,
-            "in_top10": t2_rank <= 10,
-            "in_top20": t2_rank <= 20
+            "in_top3": t2_rank <= 3,
+            "in_top10": t2_rank <= 10
         },
         "bottom2": {
             "actual": actual_bottom2,
             "rank": b2_rank,
             "score": b2_score,
-            "in_top10": b2_rank <= 10,
-            "in_top20": b2_rank <= 20
+            "in_top3": b2_rank <= 3,
+            "in_top10": b2_rank <= 10
         },
         "front3": {
             "actual": actual_front3
@@ -161,6 +158,49 @@ def get_past_history_log(df, n_draws=5):
         })
     return records
 
+def get_cold_numbers(df, target_date_str):
+    """Finds top 3 cold numbers (not drawn for the longest time)."""
+    df_b2 = calculate_2digit_scores(df, target_date_str, target_col="bottom2")
+    df_t2 = calculate_2digit_scores(df, target_date_str, target_col="top2")
+
+    cold_b2 = df_b2.sort_values(by=["draws_since_last_seen", "overall_freq"], ascending=[False, True]).head(3)
+    cold_t2 = df_t2.sort_values(by=["draws_since_last_seen", "overall_freq"], ascending=[False, True]).head(3)
+
+    return {
+        "bottom2": cold_b2[["number", "draws_since_last_seen", "overall_freq"]].to_dict(orient="records"),
+        "top2": cold_t2[["number", "draws_since_last_seen", "overall_freq"]].to_dict(orient="records"),
+    }
+
+def get_one_year_hit_rate(df, n_draws=24):
+    """Calculates Top 3 hit rate over the last N draws (approx 1 year)."""
+    hits_b2 = 0
+    hits_t2 = 0
+    start_idx = max(0, len(df) - n_draws)
+    eval_draws = len(df) - start_idx
+
+    for idx in range(start_idx, len(df)):
+        row = df.iloc[idx]
+        dt = row["draw_date"].strftime("%Y-%m-%d")
+        act_b2 = row["bottom2"]
+        act_t2 = row["top2"]
+
+        p_b2 = set(calculate_2digit_scores(df, dt, target_col="bottom2").head(3)["number"])
+        p_t2 = set(calculate_2digit_scores(df, dt, target_col="top2").head(3)["number"])
+
+        if act_b2 in p_b2:
+            hits_b2 += 1
+        if act_t2 in p_t2:
+            hits_t2 += 1
+
+    return {
+        "eval_draws": eval_draws,
+        "bottom2_hits": hits_b2,
+        "bottom2_pct": round((hits_b2 / eval_draws) * 100.0, 1) if eval_draws > 0 else 0.0,
+        "top2_hits": hits_t2,
+        "top2_pct": round((hits_t2 / eval_draws) * 100.0, 1) if eval_draws > 0 else 0.0,
+        "random_baseline_pct": 3.0
+    }
+
 def generate_html(data):
     target_date_str = data["target_date"]
     target_date_th = data["target_date_th"]
@@ -170,6 +210,8 @@ def generate_html(data):
     history_end = data["history_end"]
     past_eval = data.get("past_evaluation", {})
     history_log = data.get("history_log", [])
+    cold_numbers = data.get("cold_numbers", {})
+    hit_rate = data.get("hit_rate_1year", {})
 
     fp_top = data["first_prize"][0] if data["first_prize"] else {}
     top3_top = data["top3"][0] if data["top3"] else {}
@@ -179,10 +221,14 @@ def generate_html(data):
     def make_rows_fp(items):
         rows = ""
         for idx, item in enumerate(items, 1):
+            badge = "bg-amber-500/20 text-amber-300 border-amber-500/30" if idx == 1 else "bg-slate-800 text-slate-400 border-slate-700"
             rows += f"""
             <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">{idx}</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-400 tracking-wider">{item['number']}</td>
+                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border {badge}">อันดับ {idx}</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-400 tracking-wider">
+                    {item['number']}
+                    <button onclick="copyNum('{item['number']}', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
+                </td>
                 <td class="py-3 px-4 text-emerald-400 font-semibold">{item['composite_score']}</td>
                 <td class="py-3 px-4 text-slate-300 font-mono text-sm">{item['notes']}</td>
             </tr>
@@ -192,11 +238,16 @@ def generate_html(data):
     def make_rows_3digit(items):
         rows = ""
         for idx, item in enumerate(items, 1):
+            badge = "bg-purple-500/20 text-purple-300 border-purple-500/30" if idx == 1 else "bg-slate-800 text-slate-400 border-slate-700"
             tail_badge = f"<span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน {item.get('tail_2digit','')}</span>" if item.get('tail_2digit') else ""
             rows += f"""
             <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">{idx}</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">{item['number']}{tail_badge}</td>
+                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border {badge}">อันดับ {idx}</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
+                    {item['number']}
+                    <button onclick="copyNum('{item['number']}', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
+                    {tail_badge}
+                </td>
                 <td class="py-3 px-4 text-emerald-400 font-semibold">{item['composite_score']}</td>
                 <td class="py-3 px-4 text-slate-300 text-center">{item['day_freq']} ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">{item['seasonal_freq']} ครั้ง</td>
@@ -208,10 +259,14 @@ def generate_html(data):
     def make_rows_2digit(items):
         rows = ""
         for idx, item in enumerate(items, 1):
+            badge = "bg-cyan-500/20 text-cyan-300 border-cyan-500/30" if idx == 1 else "bg-slate-800 text-slate-400 border-slate-700"
             rows += f"""
             <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">{idx}</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">{item['number']}</td>
+                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border {badge}">อันดับ {idx}</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">
+                    {item['number']}
+                    <button onclick="copyNum('{item['number']}', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
+                </td>
                 <td class="py-3 px-4 text-emerald-400 font-semibold">{item['composite_score']}</td>
                 <td class="py-3 px-4 text-slate-300 text-center">{item['day_freq']} ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">{item['seasonal_freq']} ครั้ง</td>
@@ -225,8 +280,8 @@ def generate_html(data):
     def make_history_rows(items):
         rows = ""
         for item in items:
-            t2_badge = f"<span class='px-2 py-0.5 rounded text-xs bg-emerald-950 text-emerald-300 border border-emerald-800'>อันดับ {item['top2_rank']}</span>" if item['top2_rank'] <= 20 else f"<span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ {item['top2_rank']}</span>"
-            b2_badge = f"<span class='px-2 py-0.5 rounded text-xs bg-emerald-950 text-emerald-300 border border-emerald-800'>อันดับ {item['bottom2_rank']}</span>" if item['bottom2_rank'] <= 20 else f"<span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ {item['bottom2_rank']}</span>"
+            t2_badge = f"<span class='px-2 py-0.5 rounded text-xs bg-emerald-950 text-emerald-300 border border-emerald-800 font-bold'>อันดับ {item['top2_rank']}</span>" if item['top2_rank'] <= 3 else (f"<span class='px-2 py-0.5 rounded text-xs bg-cyan-950 text-cyan-300 border border-cyan-800'>อันดับ {item['top2_rank']}</span>" if item['top2_rank'] <= 20 else f"<span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ {item['top2_rank']}</span>")
+            b2_badge = f"<span class='px-2 py-0.5 rounded text-xs bg-emerald-950 text-emerald-300 border border-emerald-800 font-bold'>อันดับ {item['bottom2_rank']}</span>" if item['bottom2_rank'] <= 3 else (f"<span class='px-2 py-0.5 rounded text-xs bg-cyan-950 text-cyan-300 border border-cyan-800'>อันดับ {item['bottom2_rank']}</span>" if item['bottom2_rank'] <= 20 else f"<span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ {item['bottom2_rank']}</span>")
 
             rows += f"""
             <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
@@ -238,13 +293,38 @@ def generate_html(data):
             """
         return rows
 
+    def make_cold_badges(items):
+        badges = ""
+        for item in items:
+            badges += f"""
+            <div class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 flex justify-between items-center">
+                <span class="font-mono text-lg font-bold text-sky-400">{item['number']}</span>
+                <span class="text-xs text-slate-400">ไม่มานาน {item['draws_since_last_seen']} งวด (ออกรวม {item['overall_freq']})</span>
+            </div>
+            """
+        return badges
+
     html_content = f"""<!DOCTYPE html>
 <html lang="th" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ผลวิเคราะห์สถิติหวยรัฐบาลไทย - งวด {target_date_th}</title>
-    <meta name="description" content="ชุดวิเคราะห์สถิติผลสลากกินแบ่งรัฐบาลไทยย้อนหลัง พร้อมเปรียบเทียบผลจริงงวดล่าสุดและระบบอัปเดตอัตโนมัติ">
+    <title>สถิติหวยรัฐบาลไทย - วิเคราะห์งวด {target_date_th} (อันดับ 1-3)</title>
+    <meta name="description" content="ชุดวิเคราะห์สถิติผลสลากกินแบ่งรัฐบาลไทยย้อนหลัง สรุปตัวเลขเด่นอันดับ 1-3 รางวัลที่ 1, 3 ตัวบน, 2 ตัวบน, 2 ตัวล่าง พร้อมตรวจผลย้อนหลัง">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
+    
+    <!-- Open Graph / Facebook / LINE -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pkfrom.github.io/thai_lottery_analysis/">
+    <meta property="og:title" content="สถิติหวยรัฐบาลไทย - วิเคราะห์งวด {target_date_th} (อันดับ 1-3)">
+    <meta property="og:description" content="วิเคราะห์สถิติ 16+ ปี สรุปเลขเด่น Top 1-3 ครบทุกรางวัล พร้อมตารางตรวจผลย้อนหลัง">
+    <meta property="og:site_name" content="Thai Lottery Statistical Analysis">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="สถิติหวยรัฐบาลไทย - งวด {target_date_th}">
+    <meta name="twitter:description" content="สรุปตัวเลขสถิติเด่นอันดับ 1-3 ครบทุกรางวัล">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -274,10 +354,10 @@ def generate_html(data):
                 <span class="text-2xl">🎰</span>
                 <div>
                     <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-                        สถิติหวยรัฐบาลไทย
+                        สถิติหวยรัฐบาลไทย (Top 1–3)
                         <span class="text-xs font-normal px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">Auto-Update</span>
                     </h1>
-                    <p class="text-xs text-slate-400">โมเดลวิเคราะห์สถิติความน่าจะเป็นเชิงประจักษ์ 16+ ปี</p>
+                    <p class="text-xs text-slate-400">โมเดลสถิติถ่วงน้ำหนักหลายมิติ 16+ ปี</p>
                 </div>
             </div>
             <div class="flex items-center space-x-3 text-xs">
@@ -304,7 +384,7 @@ def generate_html(data):
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
                 <div>
                     <span class="text-xs uppercase tracking-widest font-bold text-amber-400 bg-amber-950/60 px-3 py-1 rounded-md border border-amber-800/60">
-                        วิเคราะห์ผลสถิติงวดถัดไป
+                        วิเคราะห์ผลสถิติงวดถัดไป (คัดเฉพาะอันดับ 1–3)
                     </span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3 font-num tracking-tight">
                         {target_date_th}
@@ -324,16 +404,18 @@ def generate_html(data):
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glow-card rounded-xl p-5 border-l-4 border-amber-500">
                 <span class="text-xs font-semibold text-slate-400">รางวัลที่ 1 (เด่นอันดับ 1)</span>
-                <div class="text-3xl font-bold font-num text-amber-400 mt-2 tracking-wider">
-                    {fp_top.get('number', '-')}
+                <div class="text-3xl font-bold font-num text-amber-400 mt-2 tracking-wider flex items-center justify-between">
+                    <span>{fp_top.get('number', '-')}</span>
+                    <button onclick="copyNum('{fp_top.get('number', '')}', this)" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
                 </div>
                 <div class="text-xs text-slate-400 mt-2">{fp_top.get('notes', '-')}</div>
             </div>
 
             <div class="glow-card rounded-xl p-5 border-l-4 border-purple-500">
                 <span class="text-xs font-semibold text-slate-400">3 ตัวบน (ท้ายรางวัลที่ 1)</span>
-                <div class="text-3xl font-bold font-num text-purple-400 mt-2 tracking-wider">
-                    {top3_top.get('number', '-')}
+                <div class="text-3xl font-bold font-num text-purple-400 mt-2 tracking-wider flex items-center justify-between">
+                    <span>{top3_top.get('number', '-')}</span>
+                    <button onclick="copyNum('{top3_top.get('number', '')}', this)" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
                 </div>
                 <div class="text-xs text-slate-400 mt-2">
                     คะแนน {top3_top.get('composite_score', '-')} | ตรงวัน {top3_top.get('day_freq', 0)} ครั้ง
@@ -342,8 +424,9 @@ def generate_html(data):
 
             <div class="glow-card rounded-xl p-5 border-l-4 border-cyan-500">
                 <span class="text-xs font-semibold text-slate-400">2 ตัวบน (ท้ายรางวัลที่ 1)</span>
-                <div class="text-3xl font-bold font-num text-cyan-400 mt-2 tracking-wider">
-                    {top2_top.get('number', '-')}
+                <div class="text-3xl font-bold font-num text-cyan-400 mt-2 tracking-wider flex items-center justify-between">
+                    <span>{top2_top.get('number', '-')}</span>
+                    <button onclick="copyNum('{top2_top.get('number', '')}', this)" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
                 </div>
                 <div class="text-xs text-slate-400 mt-2">
                     คะแนน {top2_top.get('composite_score', '-')} | ตรงวัน {top2_top.get('day_freq', 0)} ครั้ง
@@ -352,8 +435,9 @@ def generate_html(data):
 
             <div class="glow-card rounded-xl p-5 border-l-4 border-emerald-500">
                 <span class="text-xs font-semibold text-slate-400">เลขท้าย 2 ตัว (2 ตัวล่าง)</span>
-                <div class="text-3xl font-bold font-num text-emerald-400 mt-2 tracking-wider">
-                    {bottom2_top.get('number', '-')}
+                <div class="text-3xl font-bold font-num text-emerald-400 mt-2 tracking-wider flex items-center justify-between">
+                    <span>{bottom2_top.get('number', '-')}</span>
+                    <button onclick="copyNum('{bottom2_top.get('number', '')}', this)" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
                 </div>
                 <div class="text-xs text-slate-400 mt-2">
                     คะแนน {bottom2_top.get('composite_score', '-')} | สถิติรวม {bottom2_top.get('overall_freq', 0)} ครั้ง
@@ -362,7 +446,234 @@ def generate_html(data):
         </section>
 
         <!-- ======================================================== -->
-        <!-- ส่วนที่เพิ่ม: เปรียบเทียบผลวิเคราะห์ vs ผลจริงงวดที่ผ่านมา -->
+        <!-- ตารางรายละเอียดงวดถัดไป (อันดับ 1-3) -->
+        <!-- ======================================================== -->
+        <div class="space-y-8">
+
+            <!-- รางวัลที่ 1 (6 หลัก) -->
+            <section class="glow-card rounded-xl overflow-hidden">
+                <div class="p-5 border-b border-slate-800 flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
+                            <span>🏆</span> รางวัลที่ 1 (ชุดตัวเลข 6 หลักเด่น อันดับ 1–3)
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-0.5">สังเคราะห์จากความถี่ตามหลัก + 3 ตัวหน้าเด่น + 3 ตัวท้ายเด่น</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
+                            <tr>
+                                <th class="py-3 px-4 text-center">อันดับ</th>
+                                <th class="py-3 px-4">หมายเลข 6 หลัก</th>
+                                <th class="py-3 px-4">คะแนนโมเดล</th>
+                                <th class="py-3 px-4">องค์ประกอบ (หน้า + ท้าย)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {make_rows_fp(data['first_prize'])}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- เลข 3 ตัวบน และ 2 ตัวบน -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- 3 ตัวบน -->
+                <section class="glow-card rounded-xl overflow-hidden">
+                    <div class="p-5 border-b border-slate-800">
+                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
+                            <span>🎯</span> เลขท้ายรางวัลที่ 1 สามตัว (3 ตัวบน - อันดับ 1–3)
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
+                                <tr>
+                                    <th class="py-3 px-4 text-center">อันดับ</th>
+                                    <th class="py-3 px-4">ตัวเลข</th>
+                                    <th class="py-3 px-4">คะแนน</th>
+                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
+                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
+                                    <th class="py-3 px-4 text-center">รวม</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {make_rows_3digit(data['top3'])}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 2 ตัวบน -->
+                <section class="glow-card rounded-xl overflow-hidden">
+                    <div class="p-5 border-b border-slate-800">
+                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
+                            <span>🎯</span> เลขท้ายรางวัลที่ 1 สองตัว (2 ตัวบน - อันดับ 1–3)
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
+                                <tr>
+                                    <th class="py-3 px-4 text-center">อันดับ</th>
+                                    <th class="py-3 px-4">ตัวเลข</th>
+                                    <th class="py-3 px-4">คะแนน</th>
+                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
+                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
+                                    <th class="py-3 px-4 text-center">รวม</th>
+                                    <th class="py-3 px-4 text-center">แต้ม</th>
+                                    <th class="py-3 px-4 text-center">คู่/คี่</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {make_rows_2digit(data['top2'])}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- เลข 2 ตัวล่าง -->
+            <section class="glow-card rounded-xl overflow-hidden">
+                <div class="p-5 border-b border-slate-800">
+                    <h3 class="font-bold text-lg text-white flex items-center gap-2">
+                        <span>🎲</span> เลขท้าย 2 ตัว (2 ตัวล่าง - อันดับ 1–3)
+                    </h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
+                            <tr>
+                                <th class="py-3 px-4 text-center">อันดับ</th>
+                                <th class="py-3 px-4">ตัวเลข</th>
+                                <th class="py-3 px-4">คะแนน</th>
+                                <th class="py-3 px-4 text-center">ตรงวัน</th>
+                                <th class="py-3 px-4 text-center">ตรงงวด</th>
+                                <th class="py-3 px-4 text-center">สถิติรวม</th>
+                                <th class="py-3 px-4 text-center">แต้ม</th>
+                                <th class="py-3 px-4 text-center">คู่/คี่</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {make_rows_2digit(data['bottom2'])}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- รางวัล 3 ตัว (หน้า/ท้าย) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- เลขหน้า 3 ตัว -->
+                <section class="glow-card rounded-xl overflow-hidden">
+                    <div class="p-5 border-b border-slate-800">
+                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
+                            <span>📦</span> รางวัลเลขหน้า 3 ตัว (อันดับ 1–3)
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
+                                <tr>
+                                    <th class="py-3 px-4 text-center">อันดับ</th>
+                                    <th class="py-3 px-4">ตัวเลข</th>
+                                    <th class="py-3 px-4">คะแนน</th>
+                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
+                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
+                                    <th class="py-3 px-4 text-center">รวม</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {make_rows_3digit(data['front3'])}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- เลขท้าย 3 ตัว -->
+                <section class="glow-card rounded-xl overflow-hidden">
+                    <div class="p-5 border-b border-slate-800">
+                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
+                            <span>📦</span> รางวัลเลขท้าย 3 ตัว (อันดับ 1–3)
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
+                                <tr>
+                                    <th class="py-3 px-4 text-center">อันดับ</th>
+                                    <th class="py-3 px-4">ตัวเลข</th>
+                                    <th class="py-3 px-4">คะแนน</th>
+                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
+                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
+                                    <th class="py-3 px-4 text-center">รวม</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {make_rows_3digit(data['last3'])}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- สถิติเสริม: เลขดับ (Cold Numbers) & Scoreboard ความแม่นยำ -->
+        <!-- ======================================================== -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- เลขดับ 2 ตัวล่าง -->
+            <div class="glow-card rounded-xl p-5 border-l-4 border-sky-500">
+                <h4 class="text-sm font-bold text-white flex items-center gap-1.5 mb-3">
+                    <span>🧊</span> เลขดับ / ไม่มานานสุด (2 ตัวล่าง)
+                </h4>
+                <div class="space-y-2">
+                    {make_cold_badges(cold_numbers.get('bottom2', []))}
+                </div>
+            </div>
+
+            <!-- เลขดับ 2 ตัวบน -->
+            <div class="glow-card rounded-xl p-5 border-l-4 border-sky-500">
+                <h4 class="text-sm font-bold text-white flex items-center gap-1.5 mb-3">
+                    <span>🧊</span> เลขดับ / ไม่มานานสุด (2 ตัวบน)
+                </h4>
+                <div class="space-y-2">
+                    {make_cold_badges(cold_numbers.get('top2', []))}
+                </div>
+            </div>
+
+            <!-- Scoreboard ความแม่นยำ 1 ปี -->
+            <div class="glow-card rounded-xl p-5 border-l-4 border-emerald-500 flex flex-col justify-between">
+                <div>
+                    <h4 class="text-sm font-bold text-white flex items-center gap-1.5 mb-1">
+                        <span>🎯</span> อัตราความแม่นยำ Top 3 (รอบ 1 ปี)
+                    </h4>
+                    <p class="text-xs text-slate-400 mb-4">ทดสอบ Walk-Forward ย้อนหลัง {hit_rate.get('eval_draws', 24)} งวดล่าสุด</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-300">2 ตัวล่าง (เข้า Top 3):</span>
+                            <span class="font-mono font-bold text-emerald-400">{hit_rate.get('bottom2_hits', 0)}/{hit_rate.get('eval_draws', 24)} ({hit_rate.get('bottom2_pct', 0)}%)</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-300">2 ตัวบน (เข้า Top 3):</span>
+                            <span class="font-mono font-bold text-cyan-400">{hit_rate.get('top2_hits', 0)}/{hit_rate.get('eval_draws', 24)} ({hit_rate.get('top2_pct', 0)}%)</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs border-t border-slate-800 pt-2 text-slate-500">
+                            <span>เกณฑ์สุ่มเดาปกติ (Baseline):</span>
+                            <span class="font-mono">3.0%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 text-[11px] text-slate-400 italic">
+                    *หลักฐานยืนยันความโปร่งใสทางสถิติ
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- ส่วนเปรียบเทียบผลวิเคราะห์ vs ผลจริงงวดที่ผ่านมา -->
         <!-- ======================================================== -->
         <section id="past-eval" class="glow-card rounded-2xl p-6 sm:p-8 border-indigo-500/30">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 pb-5">
@@ -464,180 +775,6 @@ def generate_html(data):
             </div>
         </section>
 
-        <!-- ======================================================== -->
-        <!-- ตารางรายละเอียดงวดถัดไป -->
-        <!-- ======================================================== -->
-        <div class="space-y-8">
-
-            <!-- รางวัลที่ 1 (6 หลัก) -->
-            <section class="glow-card rounded-xl overflow-hidden">
-                <div class="p-5 border-b border-slate-800 flex justify-between items-center">
-                    <div>
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>🏆</span> รางวัลที่ 1 (ชุดตัวเลข 6 หลักเด่น)
-                        </h3>
-                        <p class="text-xs text-slate-400 mt-0.5">สังเคราะห์จากความถี่ตามหลัก + 3 ตัวหน้าเด่น + 3 ตัวท้ายเด่น</p>
-                    </div>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                            <tr>
-                                <th class="py-3 px-4 text-center">อันดับ</th>
-                                <th class="py-3 px-4">หมายเลข 6 หลัก</th>
-                                <th class="py-3 px-4">คะแนนโมเดล</th>
-                                <th class="py-3 px-4">องค์ประกอบ (หน้า + ท้าย)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {make_rows_fp(data['first_prize'])}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- เลข 3 ตัวบน และ 2 ตัวบน -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- 3 ตัวบน -->
-                <section class="glow-card rounded-xl overflow-hidden">
-                    <div class="p-5 border-b border-slate-800">
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>🎯</span> เลขท้ายรางวัลที่ 1 สามตัว (3 ตัวบน)
-                        </h3>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-sm">
-                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                                <tr>
-                                    <th class="py-3 px-4 text-center">อันดับ</th>
-                                    <th class="py-3 px-4">ตัวเลข</th>
-                                    <th class="py-3 px-4">คะแนน</th>
-                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                    <th class="py-3 px-4 text-center">รวม</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {make_rows_3digit(data['top3'])}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- 2 ตัวบน -->
-                <section class="glow-card rounded-xl overflow-hidden">
-                    <div class="p-5 border-b border-slate-800">
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>🎯</span> เลขท้ายรางวัลที่ 1 สองตัว (2 ตัวบน)
-                        </h3>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-sm">
-                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                                <tr>
-                                    <th class="py-3 px-4 text-center">อันดับ</th>
-                                    <th class="py-3 px-4">ตัวเลข</th>
-                                    <th class="py-3 px-4">คะแนน</th>
-                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                    <th class="py-3 px-4 text-center">รวม</th>
-                                    <th class="py-3 px-4 text-center">แต้ม</th>
-                                    <th class="py-3 px-4 text-center">คู่/คี่</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {make_rows_2digit(data['top2'])}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
-
-            <!-- เลข 2 ตัวล่าง -->
-            <section class="glow-card rounded-xl overflow-hidden">
-                <div class="p-5 border-b border-slate-800">
-                    <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                        <span>🎲</span> เลขท้าย 2 ตัว (2 ตัวล่าง)
-                    </h3>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                            <tr>
-                                <th class="py-3 px-4 text-center">อันดับ</th>
-                                <th class="py-3 px-4">ตัวเลข</th>
-                                <th class="py-3 px-4">คะแนน</th>
-                                <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                <th class="py-3 px-4 text-center">สถิติรวม</th>
-                                <th class="py-3 px-4 text-center">แต้ม</th>
-                                <th class="py-3 px-4 text-center">คู่/คี่</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {make_rows_2digit(data['bottom2'])}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- รางวัล 3 ตัว (หน้า/ท้าย) -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- เลขหน้า 3 ตัว -->
-                <section class="glow-card rounded-xl overflow-hidden">
-                    <div class="p-5 border-b border-slate-800">
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>📦</span> รางวัลเลขหน้า 3 ตัว (หมุน 2 ครั้ง)
-                        </h3>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-sm">
-                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                                <tr>
-                                    <th class="py-3 px-4 text-center">อันดับ</th>
-                                    <th class="py-3 px-4">ตัวเลข</th>
-                                    <th class="py-3 px-4">คะแนน</th>
-                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                    <th class="py-3 px-4 text-center">รวม</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {make_rows_3digit(data['front3'])}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- เลขท้าย 3 ตัว -->
-                <section class="glow-card rounded-xl overflow-hidden">
-                    <div class="p-5 border-b border-slate-800">
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>📦</span> รางวัลเลขท้าย 3 ตัว (หมุน 2 ครั้ง)
-                        </h3>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-sm">
-                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                                <tr>
-                                    <th class="py-3 px-4 text-center">อันดับ</th>
-                                    <th class="py-3 px-4">ตัวเลข</th>
-                                    <th class="py-3 px-4">คะแนน</th>
-                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                    <th class="py-3 px-4 text-center">รวม</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {make_rows_3digit(data['last3'])}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
-
-        </div>
-
         <!-- ข้อจำกัดเชิงสถิติ (Disclaimer) -->
         <section class="p-5 rounded-xl bg-slate-900/50 border border-slate-800 text-xs text-slate-400 space-y-2">
             <h4 class="font-bold text-slate-300 text-sm flex items-center gap-1.5">
@@ -661,13 +798,31 @@ def generate_html(data):
         </div>
     </footer>
 
+    <!-- Copy to Clipboard Script -->
+    <script>
+        function copyNum(text, btn) {{
+            if (!text || text === '-') return;
+            navigator.clipboard.writeText(text).then(function() {{
+                var origText = btn.innerHTML;
+                btn.innerHTML = '✓ คัดลอกแล้ว';
+                btn.classList.add('text-emerald-400', 'border-emerald-600');
+                setTimeout(function() {{
+                    btn.innerHTML = origText;
+                    btn.classList.remove('text-emerald-400', 'border-emerald-600');
+                }}, 1500);
+            }}).catch(function(err) {{
+                console.error('Copy failed: ', err);
+            }});
+        }}
+    </script>
+
 </body>
 </html>
 """
     return html_content
 
 def build():
-    print("Building site and generating next draw predictions...")
+    print("Building site with Top 1-3, Cold Numbers, Hit Rate, and Past Draw Evaluation...")
     raw_df = fetch_or_load_dataset()
     df = prepare_dataframe(raw_df)
 
@@ -680,9 +835,10 @@ def build():
     print(f"Next Target Draw: {target_date_str} ({target_date_th})")
 
     # Evaluation for previous draw
-    print("Evaluating model performance on previous draw...")
     past_evaluation = evaluate_past_draw(df)
     history_log = get_past_history_log(df, n_draws=5)
+    cold_numbers = get_cold_numbers(df, target_date_str)
+    hit_rate_1year = get_one_year_hit_rate(df, n_draws=24)
 
     history = df[df["draw_date"] < target_date_str].copy()
     target_day = target_dt.strftime("%A")
@@ -704,12 +860,14 @@ def build():
     data_payload = {
         "target_date": target_date_str,
         "target_date_th": target_date_th,
-        "last_update": datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC+7"),
+        "last_update": f"{latest_draw_date.strftime('%Y-%m-%d')} (คำนวณล่าสุด: {datetime.now().strftime('%Y-%m-%d %H:%M')} ICT)",
         "total_draws": len(history),
         "history_start": history["draw_date"].min().strftime("%Y-%m-%d"),
         "history_end": history["draw_date"].max().strftime("%Y-%m-%d"),
         "past_evaluation": past_evaluation,
         "history_log": history_log,
+        "cold_numbers": cold_numbers,
+        "hit_rate_1year": hit_rate_1year,
         "first_prize": df_first_prize.to_dict(orient="records"),
         "top3": df_top3.to_dict(orient="records"),
         "top2": df_top2.to_dict(orient="records"),
@@ -753,7 +911,7 @@ def build():
     df_csv.to_csv("thai_lottery_predictions.csv", index=False, encoding="utf-8-sig")
     df_csv.to_csv(os.path.join("docs", "thai_lottery_predictions.csv"), index=False, encoding="utf-8-sig")
 
-    print("Build complete! Generated with past draw evaluation.")
+    print("Build complete! All enhancements generated.")
 
 if __name__ == "__main__":
     build()

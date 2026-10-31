@@ -1,7 +1,7 @@
 {
   "target_date": "2026-11-01",
   "target_date_th": "วันอาทิตย์ที่ 1 พฤศจิกายน 2569",
-  "last_update": "2026-11-01 02:57:21 UTC+7",
+  "last_update": "2026-10-16 (คำนวณล่าสุด: 2026-11-01 03:05 ICT)",
   "total_draws": 397,
   "history_start": "2010-03-01",
   "history_end": "2026-10-16",
@@ -10,8 +10,7 @@
     "date_th": "วันศุกร์ที่ 16 ตุลาคม 2569",
     "first_prize": {
       "actual": "011781",
-      "predicted_top1": "943372",
-      "status": "ไม่ตรง"
+      "predicted_top1": "943372"
     },
     "top3": {
       "actual": "781",
@@ -20,17 +19,17 @@
     },
     "top2": {
       "actual": "81",
-      "rank": 38,
+      "rank": 74,
       "score": 8.33,
-      "in_top10": false,
-      "in_top20": false
+      "in_top3": false,
+      "in_top10": false
     },
     "bottom2": {
       "actual": "48",
       "rank": 38,
       "score": 21.82,
-      "in_top10": false,
-      "in_top20": false
+      "in_top3": false,
+      "in_top10": false
     },
     "front3": {
       "actual": [
@@ -92,6 +91,50 @@
       "bottom2_rank": 38
     }
   ],
+  "cold_numbers": {
+    "bottom2": [
+      {
+        "number": "13",
+        "draws_since_last_seen": 397,
+        "overall_freq": 0
+      },
+      {
+        "number": "41",
+        "draws_since_last_seen": 397,
+        "overall_freq": 0
+      },
+      {
+        "number": "76",
+        "draws_since_last_seen": 397,
+        "overall_freq": 0
+      }
+    ],
+    "top2": [
+      {
+        "number": "13",
+        "draws_since_last_seen": 397,
+        "overall_freq": 0
+      },
+      {
+        "number": "99",
+        "draws_since_last_seen": 397,
+        "overall_freq": 0
+      },
+      {
+        "number": "39",
+        "draws_since_last_seen": 389,
+        "overall_freq": 1
+      }
+    ]
+  },
+  "hit_rate_1year": {
+    "eval_draws": 24,
+    "bottom2_hits": 1,
+    "bottom2_pct": 4.2,
+    "top2_hits": 0,
+    "top2_pct": 0.0,
+    "random_baseline_pct": 3.0
+  },
   "first_prize": [
     {
       "number": "820404",
@@ -125,20 +168,20 @@
       "tail_2digit": "04"
     },
     {
-      "number": "804",
-      "composite_score": 85.0,
-      "day_freq": 1,
-      "seasonal_freq": 1,
-      "overall_freq": 2,
-      "tail_2digit": "04"
-    },
-    {
       "number": "106",
       "composite_score": 85.0,
       "day_freq": 1,
       "seasonal_freq": 1,
       "overall_freq": 2,
       "tail_2digit": "06"
+    },
+    {
+      "number": "804",
+      "composite_score": 85.0,
+      "day_freq": 1,
+      "seasonal_freq": 1,
+      "overall_freq": 2,
+      "tail_2digit": "04"
     }
   ],
   "top2": [
@@ -213,6 +256,13 @@
   ],
   "front3": [
     {
+      "number": "106",
+      "composite_score": 65.0,
+      "day_freq": 1,
+      "seasonal_freq": 1,
+      "overall_freq": 2
+    },
+    {
       "number": "757",
       "composite_score": 65.0,
       "day_freq": 1,
@@ -220,14 +270,7 @@
       "overall_freq": 2
     },
     {
-      "number": "913",
-      "composite_score": 65.0,
-      "day_freq": 1,
-      "seasonal_freq": 1,
-      "overall_freq": 2
-    },
-    {
-      "number": "328",
+      "number": "323",
       "composite_score": 65.0,
       "day_freq": 1,
       "seasonal_freq": 1,

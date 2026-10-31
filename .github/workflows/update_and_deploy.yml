@@ -48,17 +48,20 @@ jobs:
         run: |
           python build_site.py
 
-      - name: Commit and push updated predictions
+      - name: Commit and push if new draw results exist
         continue-on-error: true
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html docs/ predictions.json thai_lottery_predictions.csv data/thai-lottery-results.csv
-          if ! git diff --cached --quiet; then
-            git commit -m "Auto-update predictions for next draw [skip ci]"
+          
+          # Check if the raw dataset was updated with new draw results
+          if git diff --name-only data/thai-lottery-results.csv | grep -q 'data/thai-lottery-results.csv'; then
+            echo "New draw data detected! Committing changes..."
+            git add index.html docs/ predictions.json thai_lottery_predictions.csv data/thai-lottery-results.csv
+            git commit -m "Auto-update predictions for new draw [skip ci]"
             git push origin HEAD:${{ github.ref_name }} || echo "Push skipped (no write permission)"
           else
-            echo "No changes to commit."
+            echo "No new draw data detected. Skipping Git commit to keep repository history clean."
           fi
 
       - name: Upload Pages artifact

@@ -16,7 +16,7 @@
 ```
 thai_lottery_analysis/
 ├── .github/workflows/
-│   └── update_and_deploy.yml   # CI/CD ตั้งเวลารันและ Deploy Pages
+│   └── update_and_deploy.yml   # CI/CD ตั้งเวลารันและ Deploy Pages (พร้อม Clean Commit Policy)
 ├── data/
 │   └── thai-lottery-results.csv # แคชข้อมูลผลหวยย้อนหลัง
 ├── docs/                       # ไฟล์ Static Web สำหรับ GitHub Pages
@@ -43,8 +43,11 @@ thai_lottery_analysis/
    * การคำนวณสถิติเพื่อทำนายหรือประเมินงวด `target_date` ใดๆ ต้องกรองเฉพาะข้อมูล `draw_date < target_date` โดยเด็ดขาด
 3. **Resilience & Offline Fallback**:
    * การดึงข้อมูลออนไลน์จาก GitHub Raw (`huayreview/thai-lottery-results`) ต้องมี Timeout และถ้าเชื่อมต่อไม่ได้ ต้องสลับมาใช้ Local Cache ใน `data/thai-lottery-results.csv` เสมอ
-4. **ความสอดคล้องของ Web Artifacts**:
+4. **Clean CI / Commit Policy**:
+   * ใน GitHub Actions จะทำการ Commit ผลลัพธ์ใหม่ก็ต่อเมื่อพบว่างวดหวยมีข้อมูลใหม่เข้ามาใน `data/thai-lottery-results.csv` เท่านั้น เพื่อป้องกัน Commit รก
+5. **ความสอดคล้องของ Web Artifacts**:
    * เมื่อรัน `build_site.py` ต้องอัปเดตทั้งในรูท (`index.html`, `predictions.json`, `thai_lottery_predictions.csv`) และใน `docs/` ให้ตรงกันเสมอ
+   * ต้องมี Open Graph tags, Favicon, ปุ่ม 1-Click Copy, Cold Numbers และ Hit Rate 1 ปีย้อนหลังในหน้าเว็บเสมอ
 
 ---
 
