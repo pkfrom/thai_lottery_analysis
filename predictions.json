@@ -1,7 +1,7 @@
 {
   "target_date": "2026-11-01",
   "target_date_th": "วันอาทิตย์ที่ 1 พฤศจิกายน 2569",
-  "last_update": "2026-10-31 19:35:09 UTC+7",
+  "last_update": "2026-10-31 19:47:41 UTC+7",
   "total_draws": 397,
   "history_start": "2010-03-01",
   "history_end": "2026-10-16",
@@ -87,14 +87,6 @@
       "tail_2digit": "04"
     },
     {
-      "number": "804",
-      "composite_score": 85.0,
-      "day_freq": 1,
-      "seasonal_freq": 1,
-      "overall_freq": 2,
-      "tail_2digit": "04"
-    },
-    {
       "number": "106",
       "composite_score": 85.0,
       "day_freq": 1,
@@ -103,12 +95,12 @@
       "tail_2digit": "06"
     },
     {
-      "number": "371",
-      "composite_score": 60.0,
-      "day_freq": 2,
-      "seasonal_freq": 0,
+      "number": "804",
+      "composite_score": 85.0,
+      "day_freq": 1,
+      "seasonal_freq": 1,
       "overall_freq": 2,
-      "tail_2digit": "71"
+      "tail_2digit": "04"
     },
     {
       "number": "211",
@@ -117,6 +109,14 @@
       "seasonal_freq": 1,
       "overall_freq": 1,
       "tail_2digit": "11"
+    },
+    {
+      "number": "371",
+      "composite_score": 60.0,
+      "day_freq": 2,
+      "seasonal_freq": 0,
+      "overall_freq": 2,
+      "tail_2digit": "71"
     },
     {
       "number": "037",
@@ -385,14 +385,14 @@
   ],
   "front3": [
     {
-      "number": "106",
+      "number": "384",
       "composite_score": 65.0,
       "day_freq": 1,
       "seasonal_freq": 1,
       "overall_freq": 2
     },
     {
-      "number": "913",
+      "number": "106",
       "composite_score": 65.0,
       "day_freq": 1,
       "seasonal_freq": 1,
@@ -406,14 +406,7 @@
       "overall_freq": 2
     },
     {
-      "number": "384",
-      "composite_score": 65.0,
-      "day_freq": 1,
-      "seasonal_freq": 1,
-      "overall_freq": 2
-    },
-    {
-      "number": "757",
+      "number": "913",
       "composite_score": 65.0,
       "day_freq": 1,
       "seasonal_freq": 1,
@@ -427,18 +420,18 @@
       "overall_freq": 2
     },
     {
+      "number": "757",
+      "composite_score": 65.0,
+      "day_freq": 1,
+      "seasonal_freq": 1,
+      "overall_freq": 2
+    },
+    {
       "number": "429",
       "composite_score": 62.5,
       "day_freq": 2,
       "seasonal_freq": 0,
       "overall_freq": 3
-    },
-    {
-      "number": "598",
-      "composite_score": 57.5,
-      "day_freq": 1,
-      "seasonal_freq": 1,
-      "overall_freq": 1
     },
     {
       "number": "154",
@@ -448,7 +441,14 @@
       "overall_freq": 1
     },
     {
-      "number": "261",
+      "number": "598",
+      "composite_score": 57.5,
+      "day_freq": 1,
+      "seasonal_freq": 1,
+      "overall_freq": 1
+    },
+    {
+      "number": "031",
       "composite_score": 55.0,
       "day_freq": 2,
       "seasonal_freq": 0,
@@ -471,7 +471,7 @@
       "overall_freq": 4
     },
     {
-      "number": "217",
+      "number": "502",
       "composite_score": 52.0,
       "day_freq": 1,
       "seasonal_freq": 1,
@@ -485,14 +485,14 @@
       "overall_freq": 2
     },
     {
-      "number": "502",
+      "number": "245",
       "composite_score": 52.0,
       "day_freq": 1,
       "seasonal_freq": 1,
       "overall_freq": 2
     },
     {
-      "number": "245",
+      "number": "217",
       "composite_score": 52.0,
       "day_freq": 1,
       "seasonal_freq": 1,
@@ -506,13 +506,6 @@
       "overall_freq": 5
     },
     {
-      "number": "111",
-      "composite_score": 48.0,
-      "day_freq": 0,
-      "seasonal_freq": 1,
-      "overall_freq": 3
-    },
-    {
       "number": "485",
       "composite_score": 48.0,
       "day_freq": 0,
@@ -521,6 +514,13 @@
     },
     {
       "number": "285",
+      "composite_score": 48.0,
+      "day_freq": 0,
+      "seasonal_freq": 1,
+      "overall_freq": 3
+    },
+    {
+      "number": "111",
       "composite_score": 48.0,
       "day_freq": 0,
       "seasonal_freq": 1,
