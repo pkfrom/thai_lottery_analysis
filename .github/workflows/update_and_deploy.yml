@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -47,13 +49,14 @@ jobs:
           python build_site.py
 
       - name: Commit and push updated predictions
+        continue-on-error: true
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html docs/ predictions.json thai_lottery_predictions.csv data/thai-lottery-results.csv
           if ! git diff --cached --quiet; then
             git commit -m "Auto-update predictions for next draw [skip ci]"
-            git push
+            git push origin HEAD:${{ github.ref_name }} || echo "Push skipped (no write permission)"
           else
             echo "No changes to commit."
           fi
