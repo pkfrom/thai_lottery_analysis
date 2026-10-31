@@ -1,0 +1,14 @@
+# Environments & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Sub-repositories
+data/thai-lottery-results/
+
+# Temporary / OS files
+.DS_Store
+Thumbs.db

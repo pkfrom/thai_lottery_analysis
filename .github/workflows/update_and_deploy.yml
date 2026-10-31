@@ -1,0 +1,68 @@
+name: Update Predictions and Deploy GitHub Pages
+
+on:
+  schedule:
+    # Run at 10:00 UTC (17:00 ICT) on the 1st and 16th of every month (draw days)
+    - cron: '0 10 1,16 * *'
+    # Daily check at 01:00 UTC (08:00 ICT)
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  update-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Fetch latest data and build site
+        run: |
+          python build_site.py
+
+      - name: Commit and push updated predictions
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html docs/ predictions.json thai_lottery_predictions.csv data/thai-lottery-results.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto-update predictions for next draw [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
