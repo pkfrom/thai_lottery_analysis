@@ -14,6 +14,9 @@ from lottery_prediction_model import (
     calculate_first_prize_6digit,
 )
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 THAI_MONTHS = [
     "", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
     "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
@@ -49,6 +52,115 @@ def get_next_draw_date(last_dt):
         next_d = 2 if next_m == 5 else 1
         return datetime(y, next_m, next_d)
 
+def evaluate_past_draw(df):
+    """
+    Evaluates the model on the latest completed draw strictly using data prior to it.
+    """
+    last_row = df.iloc[-1]
+    target_dt = last_row["draw_date"]
+    target_date_str = target_dt.strftime("%Y-%m-%d")
+    target_date_th = format_thai_date(target_dt)
+    target_day = target_dt.strftime("%A")
+    target_md = target_dt.strftime("%m-%d")
+
+    history = df[df["draw_date"] < target_date_str].copy()
+    history_day = history[history["day_name"] == target_day]
+    history_sea = history[history["month_day"] == target_md]
+
+    # Actual results
+    actual_fp = last_row["first_prize"]
+    actual_top3 = last_row["first_prize"][-3:]
+    actual_top2 = last_row["first_prize"][-2:]
+    actual_bottom2 = last_row["bottom2"]
+    actual_front3 = [x.strip() for x in str(last_row["front_three_digits"]).split(";") if x.strip()]
+    actual_last3 = [x.strip() for x in str(last_row["last_three_digits"]).split(";") if x.strip()]
+
+    # Run predictions on history prior to this draw
+    df_b2 = calculate_2digit_scores(df, target_date_str, target_col="bottom2")
+    df_t2 = calculate_2digit_scores(df, target_date_str, target_col="top2")
+
+    b2_match = df_b2[df_b2["number"] == actual_bottom2]
+    b2_rank = int(b2_match.index[0] + 1) if len(b2_match) > 0 else 999
+    b2_score = float(b2_match["composite_score"].values[0]) if len(b2_match) > 0 else 0.0
+
+    t2_match = df_t2[df_t2["number"] == actual_top2]
+    t2_rank = int(t2_match.index[0] + 1) if len(t2_match) > 0 else 999
+    t2_score = float(t2_match["composite_score"].values[0]) if len(t2_match) > 0 else 0.0
+
+    top2_cands = list(df_t2["number"].head(5))
+    df_t3 = calculate_top3_first_prize(history, target_day, target_md, top2_cands, top_k=50)
+    t3_match = df_t3[df_t3["number"] == actual_top3]
+    t3_rank = int(t3_match.index[0] + 1) if len(t3_match) > 0 else None
+    t3_score = float(t3_match["composite_score"].values[0]) if len(t3_match) > 0 else None
+
+    df_fp = calculate_first_prize_6digit(history, target_day, target_md, df_t3, top_k=10)
+    top_pred_fp = df_fp.iloc[0]["number"] if len(df_fp) > 0 else "-"
+
+    return {
+        "date_str": target_date_str,
+        "date_th": target_date_th,
+        "first_prize": {
+            "actual": actual_fp,
+            "predicted_top1": top_pred_fp,
+            "status": "เข้าหลักสิบ/หน่วย" if (actual_fp[-2:] in df_t2.head(10)["number"].values) else "ไม่ตรง"
+        },
+        "top3": {
+            "actual": actual_top3,
+            "rank": t3_rank if t3_rank else "นอก Top 50",
+            "score": t3_score if t3_score else "-"
+        },
+        "top2": {
+            "actual": actual_top2,
+            "rank": b2_rank,
+            "score": t2_score,
+            "in_top10": t2_rank <= 10,
+            "in_top20": t2_rank <= 20
+        },
+        "bottom2": {
+            "actual": actual_bottom2,
+            "rank": b2_rank,
+            "score": b2_score,
+            "in_top10": b2_rank <= 10,
+            "in_top20": b2_rank <= 20
+        },
+        "front3": {
+            "actual": actual_front3
+        },
+        "last3": {
+            "actual": actual_last3
+        }
+    }
+
+def get_past_history_log(df, n_draws=5):
+    """Generates comparison log for the last N draws."""
+    records = []
+    start_idx = max(0, len(df) - n_draws)
+    for idx in range(start_idx, len(df)):
+        row = df.iloc[idx]
+        dt = row["draw_date"]
+        dt_str = dt.strftime("%Y-%m-%d")
+        dt_th = f"{dt.day} {THAI_MONTHS[dt.month]} {dt.year + 543}"
+
+        act_b2 = row["bottom2"]
+        act_t2 = row["top2"]
+
+        df_b2 = calculate_2digit_scores(df, dt_str, target_col="bottom2")
+        df_t2 = calculate_2digit_scores(df, dt_str, target_col="top2")
+
+        b2_rank = int(df_b2[df_b2["number"] == act_b2].index[0] + 1)
+        t2_rank = int(df_t2[df_t2["number"] == act_t2].index[0] + 1)
+
+        records.append({
+            "draw_date": dt_str,
+            "draw_date_th": dt_th,
+            "first_prize": row["first_prize"],
+            "top2_actual": act_t2,
+            "top2_rank": t2_rank,
+            "bottom2_actual": act_b2,
+            "bottom2_rank": b2_rank,
+        })
+    return records
+
 def generate_html(data):
     target_date_str = data["target_date"]
     target_date_th = data["target_date_th"]
@@ -56,6 +168,8 @@ def generate_html(data):
     total_draws = data["total_draws"]
     history_start = data["history_start"]
     history_end = data["history_end"]
+    past_eval = data.get("past_evaluation", {})
+    history_log = data.get("history_log", [])
 
     fp_top = data["first_prize"][0] if data["first_prize"] else {}
     top3_top = data["top3"][0] if data["top3"] else {}
@@ -108,14 +222,29 @@ def generate_html(data):
             """
         return rows
 
+    def make_history_rows(items):
+        rows = ""
+        for item in items:
+            t2_badge = f"<span class='px-2 py-0.5 rounded text-xs bg-emerald-950 text-emerald-300 border border-emerald-800'>อันดับ {item['top2_rank']}</span>" if item['top2_rank'] <= 20 else f"<span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ {item['top2_rank']}</span>"
+            b2_badge = f"<span class='px-2 py-0.5 rounded text-xs bg-emerald-950 text-emerald-300 border border-emerald-800'>อันดับ {item['bottom2_rank']}</span>" if item['bottom2_rank'] <= 20 else f"<span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ {item['bottom2_rank']}</span>"
+
+            rows += f"""
+            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-medium text-slate-300">{item['draw_date_th']}</td>
+                <td class="py-3 px-4 font-mono font-bold text-slate-200">{item['first_prize']}</td>
+                <td class="py-3 px-4 font-mono font-bold text-cyan-300">{item['top2_actual']} {t2_badge}</td>
+                <td class="py-3 px-4 font-mono font-bold text-emerald-300">{item['bottom2_actual']} {b2_badge}</td>
+            </tr>
+            """
+        return rows
+
     html_content = f"""<!DOCTYPE html>
 <html lang="th" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ผลวิเคราะห์สถิติหวยรัฐบาลไทย - งวด {target_date_th}</title>
-    <meta name="description" content="ชุดวิเคราะห์สถิติผลสลากกินแบ่งรัฐบาลไทยย้อนหลัง พร้อมแบบจำลองคะแนนถ่วงน้ำหนักหลายมิติและระบบอัปเดตอัตโนมัติ">
-    <!-- Tailwind CSS CDN -->
+    <meta name="description" content="ชุดวิเคราะห์สถิติผลสลากกินแบ่งรัฐบาลไทยย้อนหลัง พร้อมเปรียบเทียบผลจริงงวดล่าสุดและระบบอัปเดตอัตโนมัติ">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -148,13 +277,16 @@ def generate_html(data):
                         สถิติหวยรัฐบาลไทย
                         <span class="text-xs font-normal px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">Auto-Update</span>
                     </h1>
-                    <p class="text-xs text-slate-400">โมเดลวิเคราะห์ความน่าจะเป็นเชิงประจักษ์ 16+ ปี</p>
+                    <p class="text-xs text-slate-400">โมเดลวิเคราะห์สถิติความน่าจะเป็นเชิงประจักษ์ 16+ ปี</p>
                 </div>
             </div>
             <div class="flex items-center space-x-3 text-xs">
+                <a href="#past-eval" class="px-3 py-1.5 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 text-indigo-300 border border-indigo-700/60 transition flex items-center gap-1.5">
+                    🔍 ตรวจผลย้อนหลัง
+                </a>
                 <a href="https://github.com/pkfrom/thai_lottery_analysis" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    GitHub Repo
+                    GitHub
                 </a>
                 <a href="predictions.json" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
                     JSON API
@@ -164,7 +296,7 @@ def generate_html(data):
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow space-y-8">
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow space-y-10">
 
         <!-- Banner งวดถัดไป -->
         <section class="glow-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
@@ -190,18 +322,14 @@ def generate_html(data):
 
         <!-- Highlight Grid -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- ไฮไลท์ รางวัลที่ 1 -->
             <div class="glow-card rounded-xl p-5 border-l-4 border-amber-500">
                 <span class="text-xs font-semibold text-slate-400">รางวัลที่ 1 (เด่นอันดับ 1)</span>
                 <div class="text-3xl font-bold font-num text-amber-400 mt-2 tracking-wider">
                     {fp_top.get('number', '-')}
                 </div>
-                <div class="text-xs text-slate-400 mt-2">
-                    {fp_top.get('notes', '-')}
-                </div>
+                <div class="text-xs text-slate-400 mt-2">{fp_top.get('notes', '-')}</div>
             </div>
 
-            <!-- ไฮไลท์ 3 ตัวบน -->
             <div class="glow-card rounded-xl p-5 border-l-4 border-purple-500">
                 <span class="text-xs font-semibold text-slate-400">3 ตัวบน (ท้ายรางวัลที่ 1)</span>
                 <div class="text-3xl font-bold font-num text-purple-400 mt-2 tracking-wider">
@@ -212,7 +340,6 @@ def generate_html(data):
                 </div>
             </div>
 
-            <!-- ไฮไลท์ 2 ตัวบน -->
             <div class="glow-card rounded-xl p-5 border-l-4 border-cyan-500">
                 <span class="text-xs font-semibold text-slate-400">2 ตัวบน (ท้ายรางวัลที่ 1)</span>
                 <div class="text-3xl font-bold font-num text-cyan-400 mt-2 tracking-wider">
@@ -223,7 +350,6 @@ def generate_html(data):
                 </div>
             </div>
 
-            <!-- ไฮไลท์ 2 ตัวล่าง -->
             <div class="glow-card rounded-xl p-5 border-l-4 border-emerald-500">
                 <span class="text-xs font-semibold text-slate-400">เลขท้าย 2 ตัว (2 ตัวล่าง)</span>
                 <div class="text-3xl font-bold font-num text-emerald-400 mt-2 tracking-wider">
@@ -235,7 +361,112 @@ def generate_html(data):
             </div>
         </section>
 
-        <!-- ตารางรายละเอียด -->
+        <!-- ======================================================== -->
+        <!-- ส่วนที่เพิ่ม: เปรียบเทียบผลวิเคราะห์ vs ผลจริงงวดที่ผ่านมา -->
+        <!-- ======================================================== -->
+        <section id="past-eval" class="glow-card rounded-2xl p-6 sm:p-8 border-indigo-500/30">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 pb-5">
+                <div>
+                    <span class="text-xs uppercase tracking-widest font-bold text-indigo-400 bg-indigo-950/60 px-3 py-1 rounded-md border border-indigo-800/60">
+                        Verification & Accountability
+                    </span>
+                    <h3 class="text-2xl font-bold text-white mt-2 flex items-center gap-2">
+                        <span>🔍</span> เปรียบเทียบผลวิเคราะห์ กับผลออกจริงงวดที่ผ่านมา
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">
+                        งวดประจำวันที่: <strong class="text-indigo-300 font-num">{past_eval.get('date_th', '-')}</strong> (จำลองการทำนายโดยใช้เฉพาะข้อมูลก่อนงวดนี้ เพื่อความเที่ยงตรง)
+                    </p>
+                </div>
+                <div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-400">
+                    ตรวจย้อนหลังอัตโนมัติ
+                </div>
+            </div>
+
+            <!-- การ์ดเปรียบเทียบแต่ละรางวัล -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+                <!-- รางวัลที่ 1 -->
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <span class="text-xs font-semibold text-slate-400">รางวัลที่ 1</span>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-xs text-slate-500">ผลออกจริง</span>
+                        <span class="font-num text-xl font-bold text-white">{past_eval.get('first_prize', {}).get('actual', '-')}</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
+                        <span class="text-xs text-slate-500">โมเดลเก็ง Top 1</span>
+                        <span class="font-num text-sm text-amber-400 font-semibold">{past_eval.get('first_prize', {}).get('predicted_top1', '-')}</span>
+                    </div>
+                </div>
+
+                <!-- 3 ตัวบน -->
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <span class="text-xs font-semibold text-slate-400">3 ตัวบน (ท้ายรางวัลที่ 1)</span>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-xs text-slate-500">ผลออกจริง</span>
+                        <span class="font-num text-xl font-bold text-purple-400">{past_eval.get('top3', {}).get('actual', '-')}</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
+                        <span class="text-xs text-slate-500">อันดับในโมเดล</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">{past_eval.get('top3', {}).get('rank', '-')}</span>
+                    </div>
+                </div>
+
+                <!-- 2 ตัวบน -->
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <span class="text-xs font-semibold text-slate-400">2 ตัวบน (ท้ายรางวัลที่ 1)</span>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-xs text-slate-500">ผลออกจริง</span>
+                        <span class="font-num text-2xl font-bold text-cyan-400">{past_eval.get('top2', {}).get('actual', '-')}</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
+                        <span class="text-xs text-slate-500">อันดับโมเดล / คะแนน</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                            อันดับ {past_eval.get('top2', {}).get('rank', '-')} ({past_eval.get('top2', {}).get('score', '-')} แต้ม)
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 2 ตัวล่าง -->
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <span class="text-xs font-semibold text-slate-400">เลขท้าย 2 ตัว (2 ตัวล่าง)</span>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-xs text-slate-500">ผลออกจริง</span>
+                        <span class="font-num text-2xl font-bold text-emerald-400">{past_eval.get('bottom2', {}).get('actual', '-')}</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
+                        <span class="text-xs text-slate-500">อันดับโมเดล / คะแนน</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                            อันดับ {past_eval.get('bottom2', {}).get('rank', '-')} ({past_eval.get('bottom2', {}).get('score', '-')} แต้ม)
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ตารางประวัติ 5 งวดย้อนหลัง -->
+            <div class="mt-8">
+                <h4 class="text-sm font-bold text-slate-300 mb-3 flex items-center gap-1.5">
+                    <span>📋</span> บันทึกความแม่นยำ 5 งวดย้อนหลัง (Walk-Forward Log)
+                </h4>
+                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead class="bg-slate-900/80 text-slate-400 uppercase border-b border-slate-800">
+                            <tr>
+                                <th class="py-2.5 px-4">งวดวันที่</th>
+                                <th class="py-2.5 px-4">รางวัลที่ 1 ออกจริง</th>
+                                <th class="py-2.5 px-4">2 ตัวบน ออกจริง (อันดับโมเดล)</th>
+                                <th class="py-2.5 px-4">2 ตัวล่าง ออกจริง (อันดับโมเดล)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {make_history_rows(history_log)}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- ตารางรายละเอียดงวดถัดไป -->
+        <!-- ======================================================== -->
         <div class="space-y-8">
 
             <!-- รางวัลที่ 1 (6 หลัก) -->
@@ -448,6 +679,11 @@ def build():
     print(f"Latest record in dataset: {latest_draw_date.strftime('%Y-%m-%d')}")
     print(f"Next Target Draw: {target_date_str} ({target_date_th})")
 
+    # Evaluation for previous draw
+    print("Evaluating model performance on previous draw...")
+    past_evaluation = evaluate_past_draw(df)
+    history_log = get_past_history_log(df, n_draws=5)
+
     history = df[df["draw_date"] < target_date_str].copy()
     target_day = target_dt.strftime("%A")
     target_md = target_dt.strftime("%m-%d")
@@ -455,15 +691,15 @@ def build():
     history_day = history[history["day_name"] == target_day]
     history_sea = history[history["month_day"] == target_md]
 
-    # Calculate predictions
-    df_bottom2 = calculate_2digit_scores(df, target_date_str, target_col="bottom2")
-    df_top2 = calculate_2digit_scores(df, target_date_str, target_col="top2")
+    # Calculate predictions for next draw (Top 1-3 only)
+    df_bottom2 = calculate_2digit_scores(df, target_date_str, target_col="bottom2").head(3)
+    df_top2 = calculate_2digit_scores(df, target_date_str, target_col="top2").head(3)
     
-    top2_cands = list(df_top2["number"].head(5))
-    df_top3 = calculate_top3_first_prize(history, target_day, target_md, top2_cands, top_k=10)
-    df_front3 = score_multivalue_3digit(history["front_three_digits"], history_day["front_three_digits"], history_sea["front_three_digits"], top_k=10)
-    df_last3 = score_multivalue_3digit(history["last_three_digits"], history_day["last_three_digits"], history_sea["last_three_digits"], top_k=10)
-    df_first_prize = calculate_first_prize_6digit(history, target_day, target_md, df_top3, top_k=10)
+    top2_cands = list(df_top2["number"].head(3))
+    df_top3 = calculate_top3_first_prize(history, target_day, target_md, top2_cands, top_k=3)
+    df_front3 = score_multivalue_3digit(history["front_three_digits"], history_day["front_three_digits"], history_sea["front_three_digits"], top_k=3)
+    df_last3 = score_multivalue_3digit(history["last_three_digits"], history_day["last_three_digits"], history_sea["last_three_digits"], top_k=3)
+    df_first_prize = calculate_first_prize_6digit(history, target_day, target_md, df_top3, top_k=3)
 
     data_payload = {
         "target_date": target_date_str,
@@ -472,10 +708,12 @@ def build():
         "total_draws": len(history),
         "history_start": history["draw_date"].min().strftime("%Y-%m-%d"),
         "history_end": history["draw_date"].max().strftime("%Y-%m-%d"),
+        "past_evaluation": past_evaluation,
+        "history_log": history_log,
         "first_prize": df_first_prize.to_dict(orient="records"),
         "top3": df_top3.to_dict(orient="records"),
-        "top2": df_top2.head(10).to_dict(orient="records"),
-        "bottom2": df_bottom2.head(10).to_dict(orient="records"),
+        "top2": df_top2.to_dict(orient="records"),
+        "bottom2": df_bottom2.to_dict(orient="records"),
         "front3": df_front3.to_dict(orient="records"),
         "last3": df_last3.to_dict(orient="records"),
     }
@@ -515,10 +753,7 @@ def build():
     df_csv.to_csv("thai_lottery_predictions.csv", index=False, encoding="utf-8-sig")
     df_csv.to_csv(os.path.join("docs", "thai_lottery_predictions.csv"), index=False, encoding="utf-8-sig")
 
-    print("Build complete! Generated:")
-    print(" - index.html & docs/index.html")
-    print(" - predictions.json & docs/predictions.json")
-    print(" - thai_lottery_predictions.csv & docs/thai_lottery_predictions.csv")
+    print("Build complete! Generated with past draw evaluation.")
 
 if __name__ == "__main__":
     build()

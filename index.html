@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ผลวิเคราะห์สถิติหวยรัฐบาลไทย - งวด วันอาทิตย์ที่ 1 พฤศจิกายน 2569</title>
-    <meta name="description" content="ชุดวิเคราะห์สถิติผลสลากกินแบ่งรัฐบาลไทยย้อนหลัง พร้อมแบบจำลองคะแนนถ่วงน้ำหนักหลายมิติและระบบอัปเดตอัตโนมัติ">
-    <!-- Tailwind CSS CDN -->
+    <meta name="description" content="ชุดวิเคราะห์สถิติผลสลากกินแบ่งรัฐบาลไทยย้อนหลัง พร้อมเปรียบเทียบผลจริงงวดล่าสุดและระบบอัปเดตอัตโนมัติ">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,13 +37,16 @@
                         สถิติหวยรัฐบาลไทย
                         <span class="text-xs font-normal px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">Auto-Update</span>
                     </h1>
-                    <p class="text-xs text-slate-400">โมเดลวิเคราะห์ความน่าจะเป็นเชิงประจักษ์ 16+ ปี</p>
+                    <p class="text-xs text-slate-400">โมเดลวิเคราะห์สถิติความน่าจะเป็นเชิงประจักษ์ 16+ ปี</p>
                 </div>
             </div>
             <div class="flex items-center space-x-3 text-xs">
+                <a href="#past-eval" class="px-3 py-1.5 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 text-indigo-300 border border-indigo-700/60 transition flex items-center gap-1.5">
+                    🔍 ตรวจผลย้อนหลัง
+                </a>
                 <a href="https://github.com/pkfrom/thai_lottery_analysis" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    GitHub Repo
+                    GitHub
                 </a>
                 <a href="predictions.json" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
                     JSON API
@@ -54,7 +56,7 @@
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow space-y-8">
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow space-y-10">
 
         <!-- Banner งวดถัดไป -->
         <section class="glow-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
@@ -73,25 +75,21 @@
                 </div>
                 <div class="text-right flex md:flex-col items-center md:items-end justify-between border-t md:border-t-0 border-slate-800 pt-4 md:pt-0">
                     <span class="text-xs text-slate-400">อัปเดตข้อมูลล่าสุด</span>
-                    <span class="text-sm font-mono text-emerald-400 font-semibold">2026-10-31 19:35:09 UTC+7</span>
+                    <span class="text-sm font-mono text-emerald-400 font-semibold">2026-11-01 02:56:43 UTC+7</span>
                 </div>
             </div>
         </section>
 
         <!-- Highlight Grid -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- ไฮไลท์ รางวัลที่ 1 -->
             <div class="glow-card rounded-xl p-5 border-l-4 border-amber-500">
                 <span class="text-xs font-semibold text-slate-400">รางวัลที่ 1 (เด่นอันดับ 1)</span>
                 <div class="text-3xl font-bold font-num text-amber-400 mt-2 tracking-wider">
                     820404
                 </div>
-                <div class="text-xs text-slate-400 mt-2">
-                    หน้า 820 + ท้าย 404
-                </div>
+                <div class="text-xs text-slate-400 mt-2">หน้า 820 + ท้าย 404</div>
             </div>
 
-            <!-- ไฮไลท์ 3 ตัวบน -->
             <div class="glow-card rounded-xl p-5 border-l-4 border-purple-500">
                 <span class="text-xs font-semibold text-slate-400">3 ตัวบน (ท้ายรางวัลที่ 1)</span>
                 <div class="text-3xl font-bold font-num text-purple-400 mt-2 tracking-wider">
@@ -102,7 +100,6 @@
                 </div>
             </div>
 
-            <!-- ไฮไลท์ 2 ตัวบน -->
             <div class="glow-card rounded-xl p-5 border-l-4 border-cyan-500">
                 <span class="text-xs font-semibold text-slate-400">2 ตัวบน (ท้ายรางวัลที่ 1)</span>
                 <div class="text-3xl font-bold font-num text-cyan-400 mt-2 tracking-wider">
@@ -113,7 +110,6 @@
                 </div>
             </div>
 
-            <!-- ไฮไลท์ 2 ตัวล่าง -->
             <div class="glow-card rounded-xl p-5 border-l-4 border-emerald-500">
                 <span class="text-xs font-semibold text-slate-400">เลขท้าย 2 ตัว (2 ตัวล่าง)</span>
                 <div class="text-3xl font-bold font-num text-emerald-400 mt-2 tracking-wider">
@@ -125,7 +121,147 @@
             </div>
         </section>
 
-        <!-- ตารางรายละเอียด -->
+        <!-- ======================================================== -->
+        <!-- ส่วนที่เพิ่ม: เปรียบเทียบผลวิเคราะห์ vs ผลจริงงวดที่ผ่านมา -->
+        <!-- ======================================================== -->
+        <section id="past-eval" class="glow-card rounded-2xl p-6 sm:p-8 border-indigo-500/30">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 pb-5">
+                <div>
+                    <span class="text-xs uppercase tracking-widest font-bold text-indigo-400 bg-indigo-950/60 px-3 py-1 rounded-md border border-indigo-800/60">
+                        Verification & Accountability
+                    </span>
+                    <h3 class="text-2xl font-bold text-white mt-2 flex items-center gap-2">
+                        <span>🔍</span> เปรียบเทียบผลวิเคราะห์ กับผลออกจริงงวดที่ผ่านมา
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">
+                        งวดประจำวันที่: <strong class="text-indigo-300 font-num">วันศุกร์ที่ 16 ตุลาคม 2569</strong> (จำลองการทำนายโดยใช้เฉพาะข้อมูลก่อนงวดนี้ เพื่อความเที่ยงตรง)
+                    </p>
+                </div>
+                <div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-400">
+                    ตรวจย้อนหลังอัตโนมัติ
+                </div>
+            </div>
+
+            <!-- การ์ดเปรียบเทียบแต่ละรางวัล -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+                <!-- รางวัลที่ 1 -->
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <span class="text-xs font-semibold text-slate-400">รางวัลที่ 1</span>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-xs text-slate-500">ผลออกจริง</span>
+                        <span class="font-num text-xl font-bold text-white">011781</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
+                        <span class="text-xs text-slate-500">โมเดลเก็ง Top 1</span>
+                        <span class="font-num text-sm text-amber-400 font-semibold">943372</span>
+                    </div>
+                </div>
+
+                <!-- 3 ตัวบน -->
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <span class="text-xs font-semibold text-slate-400">3 ตัวบน (ท้ายรางวัลที่ 1)</span>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-xs text-slate-500">ผลออกจริง</span>
+                        <span class="font-num text-xl font-bold text-purple-400">781</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
+                        <span class="text-xs text-slate-500">อันดับในโมเดล</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">นอก Top 50</span>
+                    </div>
+                </div>
+
+                <!-- 2 ตัวบน -->
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <span class="text-xs font-semibold text-slate-400">2 ตัวบน (ท้ายรางวัลที่ 1)</span>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-xs text-slate-500">ผลออกจริง</span>
+                        <span class="font-num text-2xl font-bold text-cyan-400">81</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
+                        <span class="text-xs text-slate-500">อันดับโมเดล / คะแนน</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                            อันดับ 38 (8.33 แต้ม)
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 2 ตัวล่าง -->
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+                    <span class="text-xs font-semibold text-slate-400">เลขท้าย 2 ตัว (2 ตัวล่าง)</span>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-xs text-slate-500">ผลออกจริง</span>
+                        <span class="font-num text-2xl font-bold text-emerald-400">48</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
+                        <span class="text-xs text-slate-500">อันดับโมเดล / คะแนน</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                            อันดับ 38 (21.82 แต้ม)
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ตารางประวัติ 5 งวดย้อนหลัง -->
+            <div class="mt-8">
+                <h4 class="text-sm font-bold text-slate-300 mb-3 flex items-center gap-1.5">
+                    <span>📋</span> บันทึกความแม่นยำ 5 งวดย้อนหลัง (Walk-Forward Log)
+                </h4>
+                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead class="bg-slate-900/80 text-slate-400 uppercase border-b border-slate-800">
+                            <tr>
+                                <th class="py-2.5 px-4">งวดวันที่</th>
+                                <th class="py-2.5 px-4">รางวัลที่ 1 ออกจริง</th>
+                                <th class="py-2.5 px-4">2 ตัวบน ออกจริง (อันดับโมเดล)</th>
+                                <th class="py-2.5 px-4">2 ตัวล่าง ออกจริง (อันดับโมเดล)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-medium text-slate-300">16 สิงหาคม 2569</td>
+                <td class="py-3 px-4 font-mono font-bold text-slate-200">004615</td>
+                <td class="py-3 px-4 font-mono font-bold text-cyan-300">15 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 67</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-emerald-300">53 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 56</span></td>
+            </tr>
+            
+            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-medium text-slate-300">1 กันยายน 2569</td>
+                <td class="py-3 px-4 font-mono font-bold text-slate-200">417212</td>
+                <td class="py-3 px-4 font-mono font-bold text-cyan-300">12 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 33</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-emerald-300">04 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 94</span></td>
+            </tr>
+            
+            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-medium text-slate-300">16 กันยายน 2569</td>
+                <td class="py-3 px-4 font-mono font-bold text-slate-200">730640</td>
+                <td class="py-3 px-4 font-mono font-bold text-cyan-300">40 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 75</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-emerald-300">64 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 21</span></td>
+            </tr>
+            
+            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-medium text-slate-300">1 ตุลาคม 2569</td>
+                <td class="py-3 px-4 font-mono font-bold text-slate-200">402701</td>
+                <td class="py-3 px-4 font-mono font-bold text-cyan-300">01 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 95</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-emerald-300">70 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 76</span></td>
+            </tr>
+            
+            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-medium text-slate-300">16 ตุลาคม 2569</td>
+                <td class="py-3 px-4 font-mono font-bold text-slate-200">011781</td>
+                <td class="py-3 px-4 font-mono font-bold text-cyan-300">81 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 74</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-emerald-300">48 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 38</span></td>
+            </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- ตารางรายละเอียดงวดถัดไป -->
+        <!-- ======================================================== -->
         <div class="space-y-8">
 
             <!-- รางวัลที่ 1 (6 หลัก) -->
@@ -169,55 +305,6 @@
                 <td class="py-3 px-4 font-mono font-bold text-xl text-amber-400 tracking-wider">356404</td>
                 <td class="py-3 px-4 text-emerald-400 font-semibold">57.59</td>
                 <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 356 + ท้าย 404</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">4</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-400 tracking-wider">781404</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">56.82</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 781 + ท้าย 404</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">5</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-400 tracking-wider">384404</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">56.82</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 384 + ท้าย 404</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">6</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-400 tracking-wider">174404</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">56.55</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 174 + ท้าย 404</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">7</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-400 tracking-wider">915404</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">56.49</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 915 + ท้าย 404</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">8</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-400 tracking-wider">480404</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">56.29</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 480 + ท้าย 404</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">9</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-400 tracking-wider">943404</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">56.06</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 943 + ท้าย 404</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">10</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-400 tracking-wider">536404</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">55.94</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 536 + ท้าย 404</td>
             </tr>
             
                         </tbody>
@@ -272,69 +359,6 @@
                 <td class="py-3 px-4 text-emerald-400 font-semibold">85.0</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">4</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">371<span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 71</span></td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">60.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">5</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">211<span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 11</span></td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">60.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">6</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">037<span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 37</span></td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">58.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">7</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">395<span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 95</span></td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">55.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">8</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">840<span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 40</span></td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">50.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">9</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">867<span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 67</span></td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">50.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">10</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">563<span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 63</span></td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">48.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
             </tr>
             
@@ -396,83 +420,6 @@
                 <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">6 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-400 text-center">14 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คี่-คี่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">4</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">63</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">44.44</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">7 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">9 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คี่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">5</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">37</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">43.89</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">5 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">10 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คี่-คี่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">6</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">40</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">43.61</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">4 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คู่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">7</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">12</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">43.19</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">7 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">3 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คี่-คู่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">8</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">72</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">41.25</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">9 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">9 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คี่-คู่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">9</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">98</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">39.86</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">17 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คี่-คู่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">10</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">11</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">38.33</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">2 แต้ม</td>
                 <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คี่-คี่</span></td>
             </tr>
             
@@ -538,83 +485,6 @@
                 <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คู่</span></td>
             </tr>
             
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">4</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">69</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">40.34</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">15 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คี่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">5</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">85</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">39.43</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">8 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">13 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คี่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">6</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">62</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">38.41</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">7 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">8 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คู่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">7</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">87</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">35.34</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">15 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คี่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">8</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">63</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">34.09</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">9 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คี่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">9</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">98</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">33.41</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">7 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">17 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คี่-คู่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">10</td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">48</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">32.84</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">12 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คู่</span></td>
-            </tr>
-            
                         </tbody>
                     </table>
                 </div>
@@ -645,7 +515,7 @@
                                 
             <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
                 <td class="py-3 px-4 text-center font-bold text-slate-400">1</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">106</td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">757</td>
                 <td class="py-3 px-4 text-emerald-400 font-semibold">65.0</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
@@ -654,7 +524,7 @@
             
             <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
                 <td class="py-3 px-4 text-center font-bold text-slate-400">2</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">913</td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">106</td>
                 <td class="py-3 px-4 text-emerald-400 font-semibold">65.0</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
@@ -667,69 +537,6 @@
                 <td class="py-3 px-4 text-emerald-400 font-semibold">65.0</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">4</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">384</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">65.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">5</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">757</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">65.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">6</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">328</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">65.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">7</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">429</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">62.5</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">8</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">598</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">57.5</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">9</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">154</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">57.5</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">10</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">261</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">55.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
             </tr>
             
@@ -779,74 +586,11 @@
             
             <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
                 <td class="py-3 px-4 text-center font-bold text-slate-400">3</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">217</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">52.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">4</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">752</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">52.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">5</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">502</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">52.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">6</td>
                 <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">245</td>
                 <td class="py-3 px-4 text-emerald-400 font-semibold">52.0</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
                 <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">7</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">426</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">50.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">5 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">8</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">111</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">48.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">9</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">485</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">48.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold text-slate-400">10</td>
-                <td class="py-3 px-4 font-mono font-bold text-xl text-amber-300">285</td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">48.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
             </tr>
             
                             </tbody>

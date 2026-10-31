@@ -292,7 +292,7 @@ def main():
     parser.add_argument("--offline", action="store_true", help="Force using local cache without online fetch")
     parser.add_argument("--target-date", type=str, default="2026-11-01", help="Target draw date (YYYY-MM-DD)")
     parser.add_argument("--output", type=str, default=None, help="Path to save output CSV")
-    parser.add_argument("--top-n", type=int, default=10, help="Number of top candidates per category")
+    parser.add_argument("--top-n", type=int, default=3, help="Number of top candidates per category")
     parser.add_argument("--w-day", type=float, default=0.35, help="Weight for day of week frequency")
     parser.add_argument("--w-seasonal", type=float, default=0.25, help="Weight for seasonal (month-day) frequency")
     parser.add_argument("--w-overall", type=float, default=0.25, help="Weight for overall frequency")
