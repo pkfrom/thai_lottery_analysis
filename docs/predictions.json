@@ -1,7 +1,7 @@
 {
   "target_date": "2026-11-01",
   "target_date_th": "วันอาทิตย์ที่ 1 พฤศจิกายน 2569",
-  "last_update": "2026-11-01 02:57:21 UTC+7",
+  "last_update": "2026-10-31 19:57:51 UTC+7",
   "total_draws": 397,
   "history_start": "2010-03-01",
   "history_end": "2026-10-16",
@@ -213,7 +213,7 @@
   ],
   "front3": [
     {
-      "number": "757",
+      "number": "384",
       "composite_score": 65.0,
       "day_freq": 1,
       "seasonal_freq": 1,
@@ -227,7 +227,7 @@
       "overall_freq": 2
     },
     {
-      "number": "328",
+      "number": "323",
       "composite_score": 65.0,
       "day_freq": 1,
       "seasonal_freq": 1,
@@ -250,7 +250,7 @@
       "overall_freq": 4
     },
     {
-      "number": "752",
+      "number": "502",
       "composite_score": 52.0,
       "day_freq": 1,
       "seasonal_freq": 1,
