@@ -3,718 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สถิติหวยรัฐบาลไทย - วิเคราะห์งวด วันอาทิตย์ที่ 1 พฤศจิกายน 2569 (อันดับ 1-3)</title>
-    <meta name="description" content="ชุดวิเคราะห์สถิติผลสลากกินแบ่งรัฐบาลไทยย้อนหลัง สรุปตัวเลขเด่นอันดับ 1-3 รางวัลที่ 1, 3 ตัวบน, 2 ตัวบน, 2 ตัวล่าง พร้อมตรวจผลย้อนหลัง">
+    <title>สถิติหวยรัฐบาลไทย - สรุปเลขเด่นงวด วันอาทิตย์ที่ 1 พฤศจิกายน 2569</title>
+    <meta name="description" content="สรุปตัวเลขสถิติเด่นอันดับ 1-3 รางวัลที่ 1, 3 ตัวบน, 2 ตัวบน, 2 ตัวล่าง พร้อมระบบตรวจผลย้อนหลัง">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
     
-    <!-- Open Graph / Facebook / LINE -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pkfrom.github.io/thai_lottery_analysis/">
-    <meta property="og:title" content="สถิติหวยรัฐบาลไทย - วิเคราะห์งวด วันอาทิตย์ที่ 1 พฤศจิกายน 2569 (อันดับ 1-3)">
-    <meta property="og:description" content="วิเคราะห์สถิติ 16+ ปี สรุปเลขเด่น Top 1-3 ครบทุกรางวัล พร้อมตารางตรวจผลย้อนหลัง">
+    <meta property="og:title" content="สถิติหวยรัฐบาลไทย - สรุปเลขเด่นงวด วันอาทิตย์ที่ 1 พฤศจิกายน 2569">
+    <meta property="og:description" content="สรุปตัวเลขสถิติเด่นอันดับ 1-3 ครบทุกรางวัล พร้อมปุ่มคัดลอกและตรวจผลย้อนหลัง">
     <meta property="og:site_name" content="Thai Lottery Statistical Analysis">
-    
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="สถิติหวยรัฐบาลไทย - งวด วันอาทิตย์ที่ 1 พฤศจิกายน 2569">
-    <meta name="twitter:description" content="สรุปตัวเลขสถิติเด่นอันดับ 1-3 ครบทุกรางวัล">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: #0b0f19;
+            font-family: 'Prompt', sans-serif;
+            background-color: #080c14;
             color: #f1f5f9;
         }
         .font-num {
             font-family: 'Chakra Petch', monospace;
         }
-        .glow-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            backdrop-filter: blur(12px);
+        .card-surface {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            backdrop-filter: blur(16px);
+        }
+        .card-surface:hover {
+            border-color: rgba(148, 163, 184, 0.25);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
 
     <!-- Top Navigation -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-4">
+    <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <span class="text-2xl">🎰</span>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-                        สถิติหวยรัฐบาลไทย (Top 1–3)
-                        <span class="text-xs font-normal px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">Auto-Update</span>
+                    <h1 class="text-base font-bold text-white flex items-center gap-2">
+                        สถิติหวยรัฐบาลไทย
+                        <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">Auto</span>
                     </h1>
-                    <p class="text-xs text-slate-400">โมเดลสถิติถ่วงน้ำหนักหลายมิติ 16+ ปี</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-3 text-xs">
-                <a href="#past-eval" class="px-3 py-1.5 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 text-indigo-300 border border-indigo-700/60 transition flex items-center gap-1.5">
-                    🔍 ตรวจผลย้อนหลัง
-                </a>
-                <a href="https://github.com/pkfrom/thai_lottery_analysis" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <div class="flex items-center space-x-2 text-xs">
+                <button onclick="copySummary()" id="copy-summary-btn" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition flex items-center gap-1.5 shadow-sm">
+                    📋 คัดลอกเลขทั้งหมด
+                </button>
+                <a href="https://github.com/pkfrom/thai_lottery_analysis" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition hidden sm:inline-flex items-center gap-1">
                     GitHub
-                </a>
-                <a href="predictions.json" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-                    JSON API
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow space-y-10">
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-grow space-y-6">
 
-        <!-- Banner งวดถัดไป -->
-        <section class="glow-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-                <div>
-                    <span class="text-xs uppercase tracking-widest font-bold text-amber-400 bg-amber-950/60 px-3 py-1 rounded-md border border-amber-800/60">
-                        วิเคราะห์ผลสถิติงวดถัดไป (คัดเฉพาะอันดับ 1–3)
-                    </span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3 font-num tracking-tight">
-                        วันอาทิตย์ที่ 1 พฤศจิกายน 2569
-                    </h2>
-                    <p class="text-slate-400 text-sm mt-2">
-                        ประมวลผลจากข้อมูลสลากกินแบ่งรัฐบาลไทยย้อนหลังทั้งหมด <strong class="text-slate-200">397 งวด</strong> (2010-03-01 ถึง 2026-10-16)
-                    </p>
-                </div>
-                <div class="text-right flex md:flex-col items-center md:items-end justify-between border-t md:border-t-0 border-slate-800 pt-4 md:pt-0">
-                    <span class="text-xs text-slate-400">อัปเดตข้อมูลล่าสุด</span>
-                    <span class="text-sm font-mono text-emerald-400 font-semibold">2026-10-16 (คำนวณล่าสุด: 2026-11-01 03:05 ICT)</span>
-                </div>
+        <!-- Banner งวดถัดไป (Clean & Focused) -->
+        <section class="card-surface rounded-2xl p-6 sm:p-8 relative overflow-hidden text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div>
+                <span class="text-xs uppercase tracking-wider font-semibold text-amber-400 bg-amber-950/80 px-3 py-1 rounded-full border border-amber-800/50">
+                    เลขเด่นงวดถัดไป • คัดเฉพาะอันดับ 1–3
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3 font-num tracking-tight">
+                    วันอาทิตย์ที่ 1 พฤศจิกายน 2569
+                </h2>
+                <p class="text-xs text-slate-400 mt-2">
+                    วิเคราะห์จากสถิติสลากกินแบ่งรัฐบาล 397 งวด (2010-03-01 ถึง 2026-10-16)
+                </p>
+            </div>
+            <div class="text-center sm:text-right text-xs text-slate-400 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                <div class="text-slate-500 text-[11px]">สถานะข้อมูล</div>
+                <div class="font-semibold text-emerald-400 mt-0.5">เชื่อมต่อผลรางวัลล่าสุดแล้ว</div>
+                <div class="text-[10px] text-slate-500 mt-1">2026-10-16 (คำนวณล่าสุด: 2026-11-01 03:09 ICT)</div>
             </div>
         </section>
 
-        <!-- Highlight Grid -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="glow-card rounded-xl p-5 border-l-4 border-amber-500">
-                <span class="text-xs font-semibold text-slate-400">รางวัลที่ 1 (เด่นอันดับ 1)</span>
-                <div class="text-3xl font-bold font-num text-amber-400 mt-2 tracking-wider flex items-center justify-between">
-                    <span>820404</span>
-                    <button onclick="copyNum('820404', this)" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
-                </div>
-                <div class="text-xs text-slate-400 mt-2">หน้า 820 + ท้าย 404</div>
-            </div>
-
-            <div class="glow-card rounded-xl p-5 border-l-4 border-purple-500">
-                <span class="text-xs font-semibold text-slate-400">3 ตัวบน (ท้ายรางวัลที่ 1)</span>
-                <div class="text-3xl font-bold font-num text-purple-400 mt-2 tracking-wider flex items-center justify-between">
-                    <span>404</span>
-                    <button onclick="copyNum('404', this)" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
-                </div>
-                <div class="text-xs text-slate-400 mt-2">
-                    คะแนน 105.0 | ตรงวัน 2 ครั้ง
-                </div>
-            </div>
-
-            <div class="glow-card rounded-xl p-5 border-l-4 border-cyan-500">
-                <span class="text-xs font-semibold text-slate-400">2 ตัวบน (ท้ายรางวัลที่ 1)</span>
-                <div class="text-3xl font-bold font-num text-cyan-400 mt-2 tracking-wider flex items-center justify-between">
-                    <span>04</span>
-                    <button onclick="copyNum('04', this)" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
-                </div>
-                <div class="text-xs text-slate-400 mt-2">
-                    คะแนน 85.0 | ตรงวัน 4 ครั้ง
-                </div>
-            </div>
-
-            <div class="glow-card rounded-xl p-5 border-l-4 border-emerald-500">
-                <span class="text-xs font-semibold text-slate-400">เลขท้าย 2 ตัว (2 ตัวล่าง)</span>
-                <div class="text-3xl font-bold font-num text-emerald-400 mt-2 tracking-wider flex items-center justify-between">
-                    <span>79</span>
-                    <button onclick="copyNum('79', this)" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
-                </div>
-                <div class="text-xs text-slate-400 mt-2">
-                    คะแนน 72.5 | สถิติรวม 11 ครั้ง
-                </div>
-            </div>
-        </section>
+        <!-- Segmented Tab Navigation -->
+        <div class="flex p-1 bg-slate-900/90 rounded-xl border border-slate-800 max-w-md mx-auto text-xs sm:text-sm">
+            <button onclick="switchTab('summary')" id="tab-btn-summary" class="tab-btn flex-1 py-2 text-center font-bold rounded-lg transition bg-amber-500 text-slate-950 shadow-sm">
+                🎯 สรุปเลขเด่น
+            </button>
+            <button onclick="switchTab('stats')" id="tab-btn-stats" class="tab-btn flex-1 py-2 text-center font-medium rounded-lg transition text-slate-400 hover:text-white">
+                📊 เจาะลึกสถิติ
+            </button>
+            <button onclick="switchTab('past')" id="tab-btn-past" class="tab-btn flex-1 py-2 text-center font-medium rounded-lg transition text-slate-400 hover:text-white">
+                🔍 ตรวจผลย้อนหลัง
+            </button>
+        </div>
 
         <!-- ======================================================== -->
-        <!-- ตารางรายละเอียดงวดถัดไป (อันดับ 1-3) -->
+        <!-- TAB 1: สรุปเลขเด่น (Clean, Scannable, High UX)            -->
         <!-- ======================================================== -->
-        <div class="space-y-8">
+        <div id="tab-summary" class="tab-content space-y-6">
 
-            <!-- รางวัลที่ 1 (6 หลัก) -->
-            <section class="glow-card rounded-xl overflow-hidden">
-                <div class="p-5 border-b border-slate-800 flex justify-between items-center">
-                    <div>
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>🏆</span> รางวัลที่ 1 (ชุดตัวเลข 6 หลักเด่น อันดับ 1–3)
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                <!-- การ์ด 1: รางวัลที่ 1 (6 หลัก) -->
+                <div class="card-surface rounded-2xl p-6 border-t-4 border-amber-500 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <span>🏆</span> รางวัลที่ 1 (6 หลัก)
                         </h3>
-                        <p class="text-xs text-slate-400 mt-0.5">สังเคราะห์จากความถี่ตามหลัก + 3 ตัวหน้าเด่น + 3 ตัวท้ายเด่น</p>
+                        <span class="text-xs text-amber-400 font-medium">Top 3</span>
+                    </div>
+
+                    <!-- อันดับ 1 (ใหญ่เด่น) -->
+                    <div class="p-4 rounded-xl bg-gradient-to-r from-amber-950/40 to-slate-900/60 border border-amber-500/30 flex justify-between items-center">
+                        <div>
+                            <div class="text-[11px] font-semibold text-amber-400 uppercase tracking-wider">อันดับ 1 (เด่นที่สุด)</div>
+                            <div class="font-num text-3xl font-extrabold text-amber-300 tracking-wider mt-1">820404</div>
+                            <div class="text-xs text-slate-400 mt-1 font-mono">หน้า 820 + ท้าย 404</div>
+                        </div>
+                        <button onclick="copyNum('820404', this)" class="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold transition">
+                            📋 คัดลอก
+                        </button>
+                    </div>
+
+                    <!-- อันดับ 2 & 3 -->
+                    <div class="grid grid-cols-2 gap-3 pt-1">
+                        <div class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400">อันดับ 2</span>
+                                <div class="font-num text-lg font-bold text-slate-200">506404</div>
+                            </div>
+                            <button onclick="copyNum('506404', this)" class="text-xs text-slate-400 hover:text-white p-1">📋</button>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400">อันดับ 3</span>
+                                <div class="font-num text-lg font-bold text-slate-200">356404</div>
+                            </div>
+                            <button onclick="copyNum('356404', this)" class="text-xs text-slate-400 hover:text-white p-1">📋</button>
+                        </div>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                            <tr>
-                                <th class="py-3 px-4 text-center">อันดับ</th>
-                                <th class="py-3 px-4">หมายเลข 6 หลัก</th>
-                                <th class="py-3 px-4">คะแนนโมเดล</th>
-                                <th class="py-3 px-4">องค์ประกอบ (หน้า + ท้าย)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-amber-500/20 text-amber-300 border-amber-500/30">อันดับ 1</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-400 tracking-wider">
-                    820404
-                    <button onclick="copyNum('820404', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">57.83</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 820 + ท้าย 404</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 2</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-400 tracking-wider">
-                    506404
-                    <button onclick="copyNum('506404', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">57.63</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 506 + ท้าย 404</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 3</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-400 tracking-wider">
-                    356404
-                    <button onclick="copyNum('356404', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">57.59</td>
-                <td class="py-3 px-4 text-slate-300 font-mono text-sm">หน้า 356 + ท้าย 404</td>
-            </tr>
-            
-                        </tbody>
-                    </table>
+
+                <!-- การ์ด 2: 2 ตัวล่าง (เลขท้าย 2 ตัว) -->
+                <div class="card-surface rounded-2xl p-6 border-t-4 border-emerald-500 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <span>🎲</span> 2 ตัวล่าง (เลขท้าย 2 ตัว)
+                        </h3>
+                        <span class="text-xs text-emerald-400 font-medium">Top 3</span>
+                    </div>
+
+                    <!-- อันดับ 1 (ใหญ่เด่น) -->
+                    <div class="p-4 rounded-xl bg-gradient-to-r from-emerald-950/40 to-slate-900/60 border border-emerald-500/30 flex justify-between items-center">
+                        <div>
+                            <div class="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">อันดับ 1 (เด่นที่สุด)</div>
+                            <div class="font-num text-4xl font-extrabold text-emerald-300 tracking-wider mt-1">79</div>
+                            <div class="text-xs text-slate-400 mt-1">สถิติออกวันอาทิตย์ 4 ครั้ง • รวม 11 ครั้ง</div>
+                        </div>
+                        <button onclick="copyNum('79', this)" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-xs font-semibold transition">
+                            📋 คัดลอก
+                        </button>
+                    </div>
+
+                    <!-- อันดับ 2 & 3 -->
+                    <div class="grid grid-cols-2 gap-3 pt-1">
+                        <div class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400">อันดับ 2</span>
+                                <div class="font-num text-xl font-bold text-slate-200">40</div>
+                            </div>
+                            <button onclick="copyNum('40', this)" class="text-xs text-slate-400 hover:text-white p-1">📋</button>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400">อันดับ 3</span>
+                                <div class="font-num text-xl font-bold text-slate-200">06</div>
+                            </div>
+                            <button onclick="copyNum('06', this)" class="text-xs text-slate-400 hover:text-white p-1">📋</button>
+                        </div>
+                    </div>
                 </div>
-            </section>
 
-            <!-- เลข 3 ตัวบน และ 2 ตัวบน -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- 3 ตัวบน -->
-                <section class="glow-card rounded-xl overflow-hidden">
-                    <div class="p-5 border-b border-slate-800">
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>🎯</span> เลขท้ายรางวัลที่ 1 สามตัว (3 ตัวบน - อันดับ 1–3)
+                <!-- การ์ด 3: 2 ตัวบน & 3 ตัวบน (ท้ายรางวัลที่ 1) -->
+                <div class="card-surface rounded-2xl p-6 border-t-4 border-cyan-500 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <span>🎯</span> 2 ตัวบน และ 3 ตัวบน
                         </h3>
+                        <span class="text-xs text-cyan-400 font-medium">ท้ายรางวัลที่ 1</span>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-sm">
-                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                                <tr>
-                                    <th class="py-3 px-4 text-center">อันดับ</th>
-                                    <th class="py-3 px-4">ตัวเลข</th>
-                                    <th class="py-3 px-4">คะแนน</th>
-                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                    <th class="py-3 px-4 text-center">รวม</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-purple-500/20 text-purple-300 border-purple-500/30">อันดับ 1</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
-                    404
-                    <button onclick="copyNum('404', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                    <span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 04</span>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">105.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 2</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
-                    106
-                    <button onclick="copyNum('106', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                    <span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 06</span>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">85.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 3</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
-                    804
-                    <button onclick="copyNum('804', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                    <span class='ml-2 px-2 py-0.5 text-xs rounded bg-purple-900/60 text-purple-300 border border-purple-700/50'>ชน 2 ตัวบน 04</span>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">85.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
 
-                <!-- 2 ตัวบน -->
-                <section class="glow-card rounded-xl overflow-hidden">
-                    <div class="p-5 border-b border-slate-800">
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>🎯</span> เลขท้ายรางวัลที่ 1 สองตัว (2 ตัวบน - อันดับ 1–3)
-                        </h3>
+                    <!-- 2 ตัวบน (Top 3 เรียงแนวนอน สบายตา) -->
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div class="text-xs font-semibold text-cyan-400 mb-2">เลข 2 ตัวบน เด่น:</div>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="p-2 rounded-lg bg-cyan-950/40 border border-cyan-800/40">
+                                <span class="text-[10px] text-cyan-400 font-bold">#1</span>
+                                <div class="font-num text-2xl font-bold text-cyan-300">04</div>
+                                <button onclick="copyNum('04', this)" class="text-[10px] text-slate-400 hover:text-white mt-1">คัดลอก</button>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800">
+                                <span class="text-[10px] text-slate-400">#2</span>
+                                <div class="font-num text-2xl font-bold text-slate-200">06</div>
+                                <button onclick="copyNum('06', this)" class="text-[10px] text-slate-400 hover:text-white mt-1">คัดลอก</button>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800">
+                                <span class="text-[10px] text-slate-400">#3</span>
+                                <div class="font-num text-2xl font-bold text-slate-200">95</div>
+                                <button onclick="copyNum('95', this)" class="text-[10px] text-slate-400 hover:text-white mt-1">คัดลอก</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-sm">
-                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                                <tr>
-                                    <th class="py-3 px-4 text-center">อันดับ</th>
-                                    <th class="py-3 px-4">ตัวเลข</th>
-                                    <th class="py-3 px-4">คะแนน</th>
-                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                    <th class="py-3 px-4 text-center">รวม</th>
-                                    <th class="py-3 px-4 text-center">แต้ม</th>
-                                    <th class="py-3 px-4 text-center">คู่/คี่</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-cyan-500/20 text-cyan-300 border-cyan-500/30">อันดับ 1</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">
-                    04
-                    <button onclick="copyNum('04', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">85.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">9 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">4 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คู่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 2</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">
-                    06
-                    <button onclick="copyNum('06', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">65.69</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">7 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">6 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คู่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 3</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">
-                    95
-                    <button onclick="copyNum('95', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">49.17</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">6 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">14 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คี่-คี่</span></td>
-            </tr>
-            
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
 
-            <!-- เลข 2 ตัวล่าง -->
-            <section class="glow-card rounded-xl overflow-hidden">
-                <div class="p-5 border-b border-slate-800">
-                    <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                        <span>🎲</span> เลขท้าย 2 ตัว (2 ตัวล่าง - อันดับ 1–3)
-                    </h3>
+                    <!-- 3 ตัวบน (Top 3) -->
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div class="text-xs font-semibold text-purple-400 mb-2">เลข 3 ตัวบน เด่น:</div>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="p-2 rounded-lg bg-purple-950/40 border border-purple-800/40">
+                                <span class="text-[10px] text-purple-400 font-bold">#1</span>
+                                <div class="font-num text-xl font-bold text-purple-300">404</div>
+                                <button onclick="copyNum('404', this)" class="text-[10px] text-slate-400 hover:text-white mt-1">คัดลอก</button>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800">
+                                <span class="text-[10px] text-slate-400">#2</span>
+                                <div class="font-num text-xl font-bold text-slate-200">106</div>
+                                <button onclick="copyNum('106', this)" class="text-[10px] text-slate-400 hover:text-white mt-1">คัดลอก</button>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800">
+                                <span class="text-[10px] text-slate-400">#3</span>
+                                <div class="font-num text-xl font-bold text-slate-200">804</div>
+                                <button onclick="copyNum('804', this)" class="text-[10px] text-slate-400 hover:text-white mt-1">คัดลอก</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                            <tr>
-                                <th class="py-3 px-4 text-center">อันดับ</th>
-                                <th class="py-3 px-4">ตัวเลข</th>
-                                <th class="py-3 px-4">คะแนน</th>
-                                <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                <th class="py-3 px-4 text-center">สถิติรวม</th>
-                                <th class="py-3 px-4 text-center">แต้ม</th>
-                                <th class="py-3 px-4 text-center">คู่/คี่</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-cyan-500/20 text-cyan-300 border-cyan-500/30">อันดับ 1</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">
-                    79
-                    <button onclick="copyNum('79', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">72.5</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">11 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">16 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คี่-คี่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 2</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">
-                    40
-                    <button onclick="copyNum('40', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">45.57</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">4 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คู่</span></td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 3</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-cyan-400 tracking-wider">
-                    06
-                    <button onclick="copyNum('06', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">40.68</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">8 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-400 text-center">6 แต้ม</td>
-                <td class="py-3 px-4 text-slate-400 text-center"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">คู่-คู่</span></td>
-            </tr>
-            
-                        </tbody>
-                    </table>
+
+                <!-- การ์ด 4: เลขหน้า 3 ตัว & เลขท้าย 3 ตัว -->
+                <div class="card-surface rounded-2xl p-6 border-t-4 border-indigo-500 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <span>📦</span> เลขหน้า 3 ตัว & เลขท้าย 3 ตัว
+                        </h3>
+                        <span class="text-xs text-indigo-400 font-medium">หมุนอย่างละ 2 ครั้ง</span>
+                    </div>
+
+                    <!-- เลขหน้า 3 ตัว -->
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div class="text-xs font-semibold text-slate-300 mb-2">เลขหน้า 3 ตัว (อันดับ 1–3):</div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class='font-num text-lg font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-indigo-300'>757</span> <span class='font-num text-lg font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-indigo-300'>384</span> <span class='font-num text-lg font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-indigo-300'>913</span>
+                            </div>
+                            <button onclick="copyNum('757, 384, 913', this)" class="text-xs px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอกทั้งชุด</button>
+                        </div>
+                    </div>
+
+                    <!-- เลขท้าย 3 ตัว -->
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div class="text-xs font-semibold text-slate-300 mb-2">เลขท้าย 3 ตัว (อันดับ 1–3):</div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class='font-num text-lg font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-emerald-300'>008</span> <span class='font-num text-lg font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-emerald-300'>074</span> <span class='font-num text-lg font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-emerald-300'>502</span>
+                            </div>
+                            <button onclick="copyNum('008, 074, 502', this)" class="text-xs px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอกทั้งชุด</button>
+                        </div>
+                    </div>
                 </div>
-            </section>
 
-            <!-- รางวัล 3 ตัว (หน้า/ท้าย) -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- เลขหน้า 3 ตัว -->
-                <section class="glow-card rounded-xl overflow-hidden">
-                    <div class="p-5 border-b border-slate-800">
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>📦</span> รางวัลเลขหน้า 3 ตัว (อันดับ 1–3)
-                        </h3>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-sm">
-                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                                <tr>
-                                    <th class="py-3 px-4 text-center">อันดับ</th>
-                                    <th class="py-3 px-4">ตัวเลข</th>
-                                    <th class="py-3 px-4">คะแนน</th>
-                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                    <th class="py-3 px-4 text-center">รวม</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-purple-500/20 text-purple-300 border-purple-500/30">อันดับ 1</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
-                    106
-                    <button onclick="copyNum('106', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                    
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">65.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 2</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
-                    757
-                    <button onclick="copyNum('757', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                    
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">65.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 3</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
-                    323
-                    <button onclick="copyNum('323', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                    
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">65.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- เลขท้าย 3 ตัว -->
-                <section class="glow-card rounded-xl overflow-hidden">
-                    <div class="p-5 border-b border-slate-800">
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <span>📦</span> รางวัลเลขท้าย 3 ตัว (อันดับ 1–3)
-                        </h3>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-sm">
-                            <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase border-b border-slate-800">
-                                <tr>
-                                    <th class="py-3 px-4 text-center">อันดับ</th>
-                                    <th class="py-3 px-4">ตัวเลข</th>
-                                    <th class="py-3 px-4">คะแนน</th>
-                                    <th class="py-3 px-4 text-center">ตรงวัน</th>
-                                    <th class="py-3 px-4 text-center">ตรงงวด</th>
-                                    <th class="py-3 px-4 text-center">รวม</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-purple-500/20 text-purple-300 border-purple-500/30">อันดับ 1</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
-                    008
-                    <button onclick="copyNum('008', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                    
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">70.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">5 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 2</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
-                    074
-                    <button onclick="copyNum('074', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                    
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">54.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">3 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">0 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">4 ครั้ง</td>
-            </tr>
-            
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
-                <td class="py-3 px-4 text-center font-bold"><span class="px-2.5 py-1 rounded-md text-xs border bg-slate-800 text-slate-400 border-slate-700">อันดับ 3</span></td>
-                <td class="py-3 px-4 font-mono font-bold text-2xl text-amber-300">
-                    752
-                    <button onclick="copyNum('752', this)" class="ml-2 px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition" title="คัดลอก">📋 คัดลอก</button>
-                    
-                </td>
-                <td class="py-3 px-4 text-emerald-400 font-semibold">52.0</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">1 ครั้ง</td>
-                <td class="py-3 px-4 text-slate-300 text-center">2 ครั้ง</td>
-            </tr>
-            
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
             </div>
 
         </div>
 
         <!-- ======================================================== -->
-        <!-- สถิติเสริม: เลขดับ (Cold Numbers) & Scoreboard ความแม่นยำ -->
+        <!-- TAB 2: เจาะลึกสถิติ (Statistical Tables & Cold Numbers)  -->
         <!-- ======================================================== -->
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- เลขดับ 2 ตัวล่าง -->
-            <div class="glow-card rounded-xl p-5 border-l-4 border-sky-500">
-                <h4 class="text-sm font-bold text-white flex items-center gap-1.5 mb-3">
-                    <span>🧊</span> เลขดับ / ไม่มานานสุด (2 ตัวล่าง)
-                </h4>
-                <div class="space-y-2">
-                    
-            <div class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 flex justify-between items-center">
-                <span class="font-mono text-lg font-bold text-sky-400">13</span>
-                <span class="text-xs text-slate-400">ไม่มานาน 397 งวด (ออกรวม 0)</span>
-            </div>
-            
-            <div class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 flex justify-between items-center">
-                <span class="font-mono text-lg font-bold text-sky-400">41</span>
-                <span class="text-xs text-slate-400">ไม่มานาน 397 งวด (ออกรวม 0)</span>
-            </div>
-            
-            <div class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 flex justify-between items-center">
-                <span class="font-mono text-lg font-bold text-sky-400">76</span>
-                <span class="text-xs text-slate-400">ไม่มานาน 397 งวด (ออกรวม 0)</span>
-            </div>
-            
-                </div>
-            </div>
+        <div id="tab-stats" class="tab-content hidden space-y-6">
 
-            <!-- เลขดับ 2 ตัวบน -->
-            <div class="glow-card rounded-xl p-5 border-l-4 border-sky-500">
-                <h4 class="text-sm font-bold text-white flex items-center gap-1.5 mb-3">
-                    <span>🧊</span> เลขดับ / ไม่มานานสุด (2 ตัวบน)
-                </h4>
-                <div class="space-y-2">
-                    
-            <div class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 flex justify-between items-center">
-                <span class="font-mono text-lg font-bold text-sky-400">13</span>
-                <span class="text-xs text-slate-400">ไม่มานาน 397 งวด (ออกรวม 0)</span>
-            </div>
-            
-            <div class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 flex justify-between items-center">
-                <span class="font-mono text-lg font-bold text-sky-400">99</span>
-                <span class="text-xs text-slate-400">ไม่มานาน 397 งวด (ออกรวม 0)</span>
-            </div>
-            
-            <div class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 flex justify-between items-center">
-                <span class="font-mono text-lg font-bold text-sky-400">39</span>
-                <span class="text-xs text-slate-400">ไม่มานาน 389 งวด (ออกรวม 1)</span>
-            </div>
-            
+            <!-- ตารางสถิติ Top 3 ทุกรางวัล -->
+            <div class="card-surface rounded-2xl overflow-hidden">
+                <div class="p-5 border-b border-slate-800">
+                    <h3 class="font-bold text-base text-white">ตารางวิเคราะห์สถิติความถี่รายรางวัล (อันดับ 1–3)</h3>
+                    <p class="text-xs text-slate-400 mt-1">แสดงความถี่ตรงวันในสัปดาห์ (วันอาทิตย์), ตรงงวด 1 พ.ย., และสถิติรวม 16 ปี</p>
                 </div>
-            </div>
-
-            <!-- Scoreboard ความแม่นยำ 1 ปี -->
-            <div class="glow-card rounded-xl p-5 border-l-4 border-emerald-500 flex flex-col justify-between">
-                <div>
-                    <h4 class="text-sm font-bold text-white flex items-center gap-1.5 mb-1">
-                        <span>🎯</span> อัตราความแม่นยำ Top 3 (รอบ 1 ปี)
-                    </h4>
-                    <p class="text-xs text-slate-400 mb-4">ทดสอบ Walk-Forward ย้อนหลัง 24 งวดล่าสุด</p>
-                    
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-xs">
-                            <span class="text-slate-300">2 ตัวล่าง (เข้า Top 3):</span>
-                            <span class="font-mono font-bold text-emerald-400">1/24 (4.2%)</span>
-                        </div>
-                        <div class="flex justify-between items-center text-xs">
-                            <span class="text-slate-300">2 ตัวบน (เข้า Top 3):</span>
-                            <span class="font-mono font-bold text-cyan-400">0/24 (0.0%)</span>
-                        </div>
-                        <div class="flex justify-between items-center text-xs border-t border-slate-800 pt-2 text-slate-500">
-                            <span>เกณฑ์สุ่มเดาปกติ (Baseline):</span>
-                            <span class="font-mono">3.0%</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-3 text-[11px] text-slate-400 italic">
-                    *หลักฐานยืนยันความโปร่งใสทางสถิติ
-                </div>
-            </div>
-        </section>
-
-        <!-- ======================================================== -->
-        <!-- ส่วนเปรียบเทียบผลวิเคราะห์ vs ผลจริงงวดที่ผ่านมา -->
-        <!-- ======================================================== -->
-        <section id="past-eval" class="glow-card rounded-2xl p-6 sm:p-8 border-indigo-500/30">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 pb-5">
-                <div>
-                    <span class="text-xs uppercase tracking-widest font-bold text-indigo-400 bg-indigo-950/60 px-3 py-1 rounded-md border border-indigo-800/60">
-                        Verification & Accountability
-                    </span>
-                    <h3 class="text-2xl font-bold text-white mt-2 flex items-center gap-2">
-                        <span>🔍</span> เปรียบเทียบผลวิเคราะห์ กับผลออกจริงงวดที่ผ่านมา
-                    </h3>
-                    <p class="text-xs text-slate-400 mt-1">
-                        งวดประจำวันที่: <strong class="text-indigo-300 font-num">วันศุกร์ที่ 16 ตุลาคม 2569</strong> (จำลองการทำนายโดยใช้เฉพาะข้อมูลก่อนงวดนี้ เพื่อความเที่ยงตรง)
-                    </p>
-                </div>
-                <div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-400">
-                    ตรวจย้อนหลังอัตโนมัติ
-                </div>
-            </div>
-
-            <!-- การ์ดเปรียบเทียบแต่ละรางวัล -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-                <!-- รางวัลที่ 1 -->
-                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
-                    <span class="text-xs font-semibold text-slate-400">รางวัลที่ 1</span>
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-xs text-slate-500">ผลออกจริง</span>
-                        <span class="font-num text-xl font-bold text-white">011781</span>
-                    </div>
-                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
-                        <span class="text-xs text-slate-500">โมเดลเก็ง Top 1</span>
-                        <span class="font-num text-sm text-amber-400 font-semibold">943372</span>
-                    </div>
-                </div>
-
-                <!-- 3 ตัวบน -->
-                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
-                    <span class="text-xs font-semibold text-slate-400">3 ตัวบน (ท้ายรางวัลที่ 1)</span>
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-xs text-slate-500">ผลออกจริง</span>
-                        <span class="font-num text-xl font-bold text-purple-400">781</span>
-                    </div>
-                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
-                        <span class="text-xs text-slate-500">อันดับในโมเดล</span>
-                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">นอก Top 50</span>
-                    </div>
-                </div>
-
-                <!-- 2 ตัวบน -->
-                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
-                    <span class="text-xs font-semibold text-slate-400">2 ตัวบน (ท้ายรางวัลที่ 1)</span>
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-xs text-slate-500">ผลออกจริง</span>
-                        <span class="font-num text-2xl font-bold text-cyan-400">81</span>
-                    </div>
-                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
-                        <span class="text-xs text-slate-500">อันดับโมเดล / คะแนน</span>
-                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
-                            อันดับ 74 (8.33 แต้ม)
-                        </span>
-                    </div>
-                </div>
-
-                <!-- 2 ตัวล่าง -->
-                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
-                    <span class="text-xs font-semibold text-slate-400">เลขท้าย 2 ตัว (2 ตัวล่าง)</span>
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-xs text-slate-500">ผลออกจริง</span>
-                        <span class="font-num text-2xl font-bold text-emerald-400">48</span>
-                    </div>
-                    <div class="flex justify-between items-baseline border-t border-slate-800/80 pt-2">
-                        <span class="text-xs text-slate-500">อันดับโมเดล / คะแนน</span>
-                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
-                            อันดับ 38 (21.82 แต้ม)
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ตารางประวัติ 5 งวดย้อนหลัง -->
-            <div class="mt-8">
-                <h4 class="text-sm font-bold text-slate-300 mb-3 flex items-center gap-1.5">
-                    <span>📋</span> บันทึกความแม่นยำ 5 งวดย้อนหลัง (Walk-Forward Log)
-                </h4>
-                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs sm:text-sm">
-                        <thead class="bg-slate-900/80 text-slate-400 uppercase border-b border-slate-800">
+                        <thead class="bg-slate-900 text-slate-400 uppercase border-b border-slate-800">
+                            <tr>
+                                <th class="py-2.5 px-4 text-center">อันดับ</th>
+                                <th class="py-2.5 px-4">ตัวเลข</th>
+                                <th class="py-2.5 px-4 text-center">คะแนนโมเดล</th>
+                                <th class="py-2.5 px-4 text-center">ตรงวัน</th>
+                                <th class="py-2.5 px-4 text-center">ตรงงวด</th>
+                                <th class="py-2.5 px-4 text-center">สถิติรวม</th>
+                                <th class="py-2.5 px-4 text-right">การจัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- หมวด 2 ตัวล่าง -->
+                            <tr class="bg-slate-900/90 font-bold text-xs text-emerald-400"><td colspan="7" class="py-2 px-4">หมวด: เลขท้าย 2 ตัว (2 ตัวล่าง)</td></tr>
+                            
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded text-xs border bg-amber-500/20 text-amber-300 border-amber-500/30 font-semibold">#1</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-emerald-400">
+                    79 
+                </td>
+                <td class="py-3 px-4 text-center font-mono text-emerald-400 font-semibold">72.5</td>
+                <td class="py-3 px-4 text-center text-slate-300">4</td>
+                <td class="py-3 px-4 text-center text-slate-300">1</td>
+                <td class="py-3 px-4 text-center text-slate-300">11</td>
+                <td class="py-3 px-4 text-right">
+                    <button onclick="copyNum('79', this)" class="px-2.5 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
+                </td>
+            </tr>
+            
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded text-xs border bg-slate-800 text-slate-400 border-slate-700 font-semibold">#2</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-emerald-400">
+                    40 
+                </td>
+                <td class="py-3 px-4 text-center font-mono text-emerald-400 font-semibold">45.57</td>
+                <td class="py-3 px-4 text-center text-slate-300">3</td>
+                <td class="py-3 px-4 text-center text-slate-300">1</td>
+                <td class="py-3 px-4 text-center text-slate-300">3</td>
+                <td class="py-3 px-4 text-right">
+                    <button onclick="copyNum('40', this)" class="px-2.5 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
+                </td>
+            </tr>
+            
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded text-xs border bg-slate-800 text-slate-400 border-slate-700 font-semibold">#3</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-emerald-400">
+                    06 
+                </td>
+                <td class="py-3 px-4 text-center font-mono text-emerald-400 font-semibold">40.68</td>
+                <td class="py-3 px-4 text-center text-slate-300">2</td>
+                <td class="py-3 px-4 text-center text-slate-300">0</td>
+                <td class="py-3 px-4 text-center text-slate-300">8</td>
+                <td class="py-3 px-4 text-right">
+                    <button onclick="copyNum('06', this)" class="px-2.5 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
+                </td>
+            </tr>
+            
+
+                            <!-- หมวด 2 ตัวบน -->
+                            <tr class="bg-slate-900/90 font-bold text-xs text-cyan-400"><td colspan="7" class="py-2 px-4">หมวด: 2 ตัวบน (ท้ายรางวัลที่ 1)</td></tr>
+                            
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded text-xs border bg-amber-500/20 text-amber-300 border-amber-500/30 font-semibold">#1</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-cyan-400">
+                    04 
+                </td>
+                <td class="py-3 px-4 text-center font-mono text-emerald-400 font-semibold">85.0</td>
+                <td class="py-3 px-4 text-center text-slate-300">4</td>
+                <td class="py-3 px-4 text-center text-slate-300">2</td>
+                <td class="py-3 px-4 text-center text-slate-300">9</td>
+                <td class="py-3 px-4 text-right">
+                    <button onclick="copyNum('04', this)" class="px-2.5 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
+                </td>
+            </tr>
+            
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded text-xs border bg-slate-800 text-slate-400 border-slate-700 font-semibold">#2</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-cyan-400">
+                    06 
+                </td>
+                <td class="py-3 px-4 text-center font-mono text-emerald-400 font-semibold">65.69</td>
+                <td class="py-3 px-4 text-center text-slate-300">3</td>
+                <td class="py-3 px-4 text-center text-slate-300">1</td>
+                <td class="py-3 px-4 text-center text-slate-300">7</td>
+                <td class="py-3 px-4 text-right">
+                    <button onclick="copyNum('06', this)" class="px-2.5 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
+                </td>
+            </tr>
+            
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded text-xs border bg-slate-800 text-slate-400 border-slate-700 font-semibold">#3</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-cyan-400">
+                    95 
+                </td>
+                <td class="py-3 px-4 text-center font-mono text-emerald-400 font-semibold">49.17</td>
+                <td class="py-3 px-4 text-center text-slate-300">2</td>
+                <td class="py-3 px-4 text-center text-slate-300">0</td>
+                <td class="py-3 px-4 text-center text-slate-300">6</td>
+                <td class="py-3 px-4 text-right">
+                    <button onclick="copyNum('95', this)" class="px-2.5 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
+                </td>
+            </tr>
+            
+
+                            <!-- หมวด 3 ตัวบน -->
+                            <tr class="bg-slate-900/90 font-bold text-xs text-purple-400"><td colspan="7" class="py-2 px-4">หมวด: 3 ตัวบน (ท้ายรางวัลที่ 1)</td></tr>
+                            
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded text-xs border bg-amber-500/20 text-amber-300 border-amber-500/30 font-semibold">#1</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-purple-300">
+                    404 <span class='ml-2 text-xs px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800'>ชน 2 ตัวบน 04</span>
+                </td>
+                <td class="py-3 px-4 text-center font-mono text-emerald-400 font-semibold">105.0</td>
+                <td class="py-3 px-4 text-center text-slate-300">2</td>
+                <td class="py-3 px-4 text-center text-slate-300">1</td>
+                <td class="py-3 px-4 text-center text-slate-300">2</td>
+                <td class="py-3 px-4 text-right">
+                    <button onclick="copyNum('404', this)" class="px-2.5 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
+                </td>
+            </tr>
+            
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded text-xs border bg-slate-800 text-slate-400 border-slate-700 font-semibold">#2</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-purple-300">
+                    106 <span class='ml-2 text-xs px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800'>ชน 2 ตัวบน 06</span>
+                </td>
+                <td class="py-3 px-4 text-center font-mono text-emerald-400 font-semibold">85.0</td>
+                <td class="py-3 px-4 text-center text-slate-300">1</td>
+                <td class="py-3 px-4 text-center text-slate-300">1</td>
+                <td class="py-3 px-4 text-center text-slate-300">2</td>
+                <td class="py-3 px-4 text-right">
+                    <button onclick="copyNum('106', this)" class="px-2.5 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
+                </td>
+            </tr>
+            
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded text-xs border bg-slate-800 text-slate-400 border-slate-700 font-semibold">#3</span></td>
+                <td class="py-3 px-4 font-mono font-bold text-xl text-purple-300">
+                    804 <span class='ml-2 text-xs px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800'>ชน 2 ตัวบน 04</span>
+                </td>
+                <td class="py-3 px-4 text-center font-mono text-emerald-400 font-semibold">85.0</td>
+                <td class="py-3 px-4 text-center text-slate-300">1</td>
+                <td class="py-3 px-4 text-center text-slate-300">1</td>
+                <td class="py-3 px-4 text-center text-slate-300">2</td>
+                <td class="py-3 px-4 text-right">
+                    <button onclick="copyNum('804', this)" class="px-2.5 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">📋 คัดลอก</button>
+                </td>
+            </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- กล่องเลขดับ & ความแม่นยำ -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- เลขดับ (Cold Numbers) -->
+                <div class="card-surface rounded-2xl p-5 space-y-3">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <span>🧊</span> เลขดับ / ไม่มานานที่สุด (Cold Numbers)
+                    </h4>
+                    <p class="text-xs text-slate-400">ตัวเลขที่ไม่เคยออกหรือทิ้งช่วงการออกรางวัลยาวนานที่สุดในรอบ 16 ปี</p>
+                    
+                    <div class="space-y-2 pt-1 text-xs">
+                        <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-slate-400">2 ตัวล่าง ไม่มานานสุด:</span>
+                                <span class="font-num text-base font-bold text-sky-400 ml-2">13, 41, 76</span>
+                            </div>
+                            <span class="text-[11px] text-slate-500">397 งวด</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-slate-400">2 ตัวบน ไม่มานานสุด:</span>
+                                <span class="font-num text-base font-bold text-sky-400 ml-2">13, 99, 39</span>
+                            </div>
+                            <span class="text-[11px] text-slate-500">397 งวด</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPI ความแม่นยำ 1 ปี -->
+                <div class="card-surface rounded-2xl p-5 space-y-3">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <span>🎯</span> ความแม่นยำสะสมกลุ่ม Top 3 (1 ปีย้อนหลัง)
+                    </h4>
+                    <p class="text-xs text-slate-400">ทดสอบ Walk-Forward บน 24 งวดล่าสุดโดยไม่รั่วไหลของข้อมูล</p>
+
+                    <div class="space-y-2 pt-1 text-xs">
+                        <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 flex justify-between items-center">
+                            <span class="text-slate-300">2 ตัวล่าง (เข้า Top 3):</span>
+                            <span class="font-mono font-bold text-emerald-400 text-sm">1/24 (4.2%)</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 flex justify-between items-center">
+                            <span class="text-slate-300">2 ตัวบน (เข้า Top 3):</span>
+                            <span class="font-mono font-bold text-cyan-400 text-sm">0/24 (0.0%)</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 text-right">
+                            *เกณฑ์สุ่มเดาปกติทางทฤษฎี (Baseline) = 3.0%
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- TAB 3: ตรวจผลย้อนหลัง (Past Draw Comparison)             -->
+        <!-- ======================================================== -->
+        <div id="tab-past" class="tab-content hidden space-y-6">
+
+            <!-- งวดล่าสุด 16 ต.ค. 69 -->
+            <div class="card-surface rounded-2xl p-6 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <span>🔍</span> ผลออกจริง vs ตัวเลขที่โมเดลเก็งไว้
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-0.5">งวดประจำวันที่ วันศุกร์ที่ 16 ตุลาคม 2569</p>
+                    </div>
+                    <span class="text-xs px-2.5 py-1 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">งวดที่ผ่านมา</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800">
+                        <span class="text-xs text-slate-400">รางวัลที่ 1 ออกจริง</span>
+                        <div class="font-num text-xl font-bold text-white mt-1">011781</div>
+                        <div class="text-[11px] text-amber-400/80 mt-1">เก็ง #1: 943372</div>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800">
+                        <span class="text-xs text-slate-400">3 ตัวบน ออกจริง</span>
+                        <div class="font-num text-xl font-bold text-purple-400 mt-1">781</div>
+                        <div class="text-[11px] text-slate-400 mt-1">อันดับโมเดล: นอก Top 50</div>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800">
+                        <span class="text-xs text-slate-400">2 ตัวบน ออกจริง</span>
+                        <div class="font-num text-xl font-bold text-cyan-400 mt-1">81</div>
+                        <div class="text-[11px] text-slate-400 mt-1">อันดับโมเดล: 74</div>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800">
+                        <span class="text-xs text-slate-400">2 ตัวล่าง ออกจริง</span>
+                        <div class="font-num text-xl font-bold text-emerald-400 mt-1">48</div>
+                        <div class="text-[11px] text-slate-400 mt-1">อันดับโมเดล: 38</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ประวัติ 5 งวดย้อนหลัง -->
+            <div class="card-surface rounded-2xl overflow-hidden">
+                <div class="p-5 border-b border-slate-800">
+                    <h4 class="text-sm font-bold text-white">บันทึกความแม่นยำ 5 งวดย้อนหลัง (Walk-Forward Log)</h4>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead class="bg-slate-900 text-slate-400 uppercase border-b border-slate-800">
                             <tr>
                                 <th class="py-2.5 px-4">งวดวันที่</th>
                                 <th class="py-2.5 px-4">รางวัลที่ 1 ออกจริง</th>
@@ -724,35 +554,35 @@
                         </thead>
                         <tbody>
                             
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
                 <td class="py-3 px-4 font-medium text-slate-300">16 สิงหาคม 2569</td>
                 <td class="py-3 px-4 font-mono font-bold text-slate-200">004615</td>
                 <td class="py-3 px-4 font-mono font-bold text-cyan-300">15 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 67</span></td>
                 <td class="py-3 px-4 font-mono font-bold text-emerald-300">53 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 56</span></td>
             </tr>
             
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
                 <td class="py-3 px-4 font-medium text-slate-300">1 กันยายน 2569</td>
                 <td class="py-3 px-4 font-mono font-bold text-slate-200">417212</td>
                 <td class="py-3 px-4 font-mono font-bold text-cyan-300">12 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 33</span></td>
                 <td class="py-3 px-4 font-mono font-bold text-emerald-300">04 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 94</span></td>
             </tr>
             
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
                 <td class="py-3 px-4 font-medium text-slate-300">16 กันยายน 2569</td>
                 <td class="py-3 px-4 font-mono font-bold text-slate-200">730640</td>
                 <td class="py-3 px-4 font-mono font-bold text-cyan-300">40 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 75</span></td>
                 <td class="py-3 px-4 font-mono font-bold text-emerald-300">64 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 21</span></td>
             </tr>
             
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
                 <td class="py-3 px-4 font-medium text-slate-300">1 ตุลาคม 2569</td>
                 <td class="py-3 px-4 font-mono font-bold text-slate-200">402701</td>
                 <td class="py-3 px-4 font-mono font-bold text-cyan-300">01 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 95</span></td>
                 <td class="py-3 px-4 font-mono font-bold text-emerald-300">70 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 76</span></td>
             </tr>
             
-            <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition">
+            <tr class="border-b border-slate-800/80 hover:bg-slate-800/30 transition">
                 <td class="py-3 px-4 font-medium text-slate-300">16 ตุลาคม 2569</td>
                 <td class="py-3 px-4 font-mono font-bold text-slate-200">011781</td>
                 <td class="py-3 px-4 font-mono font-bold text-cyan-300">81 <span class='px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400'>อันดับ 74</span></td>
@@ -763,45 +593,75 @@
                     </table>
                 </div>
             </div>
-        </section>
 
-        <!-- ข้อจำกัดเชิงสถิติ (Disclaimer) -->
-        <section class="p-5 rounded-xl bg-slate-900/50 border border-slate-800 text-xs text-slate-400 space-y-2">
-            <h4 class="font-bold text-slate-300 text-sm flex items-center gap-1.5">
-                <span>⚠️</span> ข้อชี้แจงทางสถิติและความน่าจะเป็น (Statistical Disclaimer)
-            </h4>
-            <p>
-                1. <strong>หลักการสุ่มอิสระ (Independent Trials):</strong> การออกรางวัลสลากกินแบ่งรัฐบาลแต่ละงวดเป็นอิสระต่อกันโดยสมบูรณ์ตามหลักกลศาสตร์กายภาพ ตัวเลข 00–99 ทุกตัวมีโอกาสออกเท่ากัน 1% เสมอ
-            </p>
-            <p>
-                2. <strong>วัตถุประสงค์:</strong> ระบบนี้จัดทำขึ้นเพื่อการวิเคราะห์โครงสร้างข้อมูลในอดีต (Empirical Exploratory Analysis) และเพื่อการศึกษาทางสถิติเท่านั้น ไม่สามารถการันตีผลลัพธ์ในอนาคตได้
-            </p>
+        </div>
+
+        <!-- Disclaimer -->
+        <section class="p-4 rounded-xl bg-slate-900/40 border border-slate-800 text-[11px] text-slate-500 space-y-1 text-center sm:text-left">
+            <p><strong>คำชี้แจง:</strong> การออกสลากกินแบ่งรัฐบาลเป็นการสุ่มอิสระตามกลศาสตร์กายภาพ (โอกาสออก 1% เท่ากันทุกหมายเลข) ข้อมูลชุดนี้จัดทำขึ้นเพื่อการศึกษาทางสถิติย้อนหลังเท่านั้น ไม่สามารถการันตีผลรางวัลได้</p>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-800 bg-slate-950/80 py-6 text-center text-xs text-slate-500">
-        <div class="max-w-7xl mx-auto px-4 space-y-2">
-            <p>Thai Lottery Statistical Analysis Engine &copy; 2026 | Open Source on GitHub</p>
-            <p>ขับเคลื่อนด้วยชุดข้อมูล <a href="https://github.com/huayreview/thai-lottery-results" target="_blank" class="text-slate-400 hover:text-white underline">huayreview/thai-lottery-results</a></p>
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-5 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 space-y-1">
+            <p>Thai Lottery Statistical Analysis &copy; 2026 | Open Source on GitHub</p>
+            <p class="text-[11px]">ข้อมูลจาก <a href="https://github.com/huayreview/thai-lottery-results" target="_blank" class="text-slate-400 hover:text-white underline">huayreview/thai-lottery-results</a></p>
         </div>
     </footer>
 
-    <!-- Copy to Clipboard Script -->
+    <!-- Tab & Copy Scripts -->
     <script>
+        const fullSummaryText = `🎰 ผลวิเคราะห์สถิติหวยรัฐบาลไทย
+งวด: วันอาทิตย์ที่ 1 พฤศจิกายน 2569
+-----------------------
+🏆 รางวัลที่ 1: 820404, 506404, 356404
+🎯 3 ตัวบน: 404, 106, 804
+🎯 2 ตัวบน: 04, 06, 95
+🎲 2 ตัวล่าง: 79, 40, 06
+📦 เลขหน้า 3 ตัว: 757, 384, 913
+📦 เลขท้าย 3 ตัว: 008, 074, 502
+-----------------------
+ดูตารางเต็ม: https://pkfrom.github.io/thai_lottery_analysis/`;
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn flex-1 py-2 text-center font-medium rounded-lg transition text-slate-400 hover:text-white";
+            });
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            activeBtn.className = "tab-btn flex-1 py-2 text-center font-bold rounded-lg transition bg-amber-500 text-slate-950 shadow-sm";
+        }
+
         function copyNum(text, btn) {
             if (!text || text === '-') return;
             navigator.clipboard.writeText(text).then(function() {
-                var origText = btn.innerHTML;
+                var orig = btn.innerHTML;
                 btn.innerHTML = '✓ คัดลอกแล้ว';
-                btn.classList.add('text-emerald-400', 'border-emerald-600');
+                btn.classList.add('text-emerald-400');
                 setTimeout(function() {
-                    btn.innerHTML = origText;
-                    btn.classList.remove('text-emerald-400', 'border-emerald-600');
+                    btn.innerHTML = orig;
+                    btn.classList.remove('text-emerald-400');
                 }, 1500);
             }).catch(function(err) {
                 console.error('Copy failed: ', err);
+            });
+        }
+
+        function copySummary() {
+            navigator.clipboard.writeText(fullSummaryText).then(function() {
+                const btn = document.getElementById('copy-summary-btn');
+                const orig = btn.innerHTML;
+                btn.innerHTML = '✓ คัดลอกแล้ว!';
+                btn.classList.remove('bg-amber-500', 'text-slate-950');
+                btn.classList.add('bg-emerald-500', 'text-white');
+                setTimeout(function() {
+                    btn.innerHTML = orig;
+                    btn.classList.remove('bg-emerald-500', 'text-white');
+                    btn.classList.add('bg-amber-500', 'text-slate-950');
+                }, 2000);
             });
         }
     </script>

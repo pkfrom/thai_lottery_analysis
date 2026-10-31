@@ -1,7 +1,7 @@
 {
   "target_date": "2026-11-01",
   "target_date_th": "วันอาทิตย์ที่ 1 พฤศจิกายน 2569",
-  "last_update": "2026-10-16 (คำนวณล่าสุด: 2026-11-01 03:05 ICT)",
+  "last_update": "2026-10-16 (คำนวณล่าสุด: 2026-11-01 03:09 ICT)",
   "total_draws": 397,
   "history_start": "2010-03-01",
   "history_end": "2026-10-16",
@@ -14,22 +14,19 @@
     },
     "top3": {
       "actual": "781",
-      "rank": "นอก Top 50",
-      "score": "-"
+      "rank": "นอก Top 50"
     },
     "top2": {
       "actual": "81",
       "rank": 74,
       "score": 8.33,
-      "in_top3": false,
-      "in_top10": false
+      "in_top3": false
     },
     "bottom2": {
       "actual": "48",
       "rank": 38,
       "score": 21.82,
-      "in_top3": false,
-      "in_top10": false
+      "in_top3": false
     },
     "front3": {
       "actual": [
@@ -256,13 +253,6 @@
   ],
   "front3": [
     {
-      "number": "106",
-      "composite_score": 65.0,
-      "day_freq": 1,
-      "seasonal_freq": 1,
-      "overall_freq": 2
-    },
-    {
       "number": "757",
       "composite_score": 65.0,
       "day_freq": 1,
@@ -270,7 +260,14 @@
       "overall_freq": 2
     },
     {
-      "number": "323",
+      "number": "384",
+      "composite_score": 65.0,
+      "day_freq": 1,
+      "seasonal_freq": 1,
+      "overall_freq": 2
+    },
+    {
+      "number": "913",
       "composite_score": 65.0,
       "day_freq": 1,
       "seasonal_freq": 1,
