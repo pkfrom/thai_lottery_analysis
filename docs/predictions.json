@@ -1,56 +1,47 @@
 {
-  "target_date": "2026-11-16",
-  "target_date_th": "วันจันทร์ที่ 16 พฤศจิกายน 2569",
-  "last_update": "2026-11-01 (คำนวณล่าสุด: 2026-11-02 07:06 ICT)",
-  "total_draws": 398,
+  "target_date": "2026-12-01",
+  "target_date_th": "วันอังคารที่ 1 ธันวาคม 2569",
+  "last_update": "2026-11-16 (คำนวณล่าสุด: 2026-11-18 08:09 ICT)",
+  "total_draws": 399,
   "history_start": "2010-03-01",
-  "history_end": "2026-11-01",
+  "history_end": "2026-11-16",
   "past_evaluation": {
-    "date_str": "2026-11-01",
-    "date_th": "วันอาทิตย์ที่ 1 พฤศจิกายน 2569",
+    "date_str": "2026-11-16",
+    "date_th": "วันจันทร์ที่ 16 พฤศจิกายน 2569",
     "first_prize": {
-      "actual": "423224",
-      "predicted_top1": "820404"
+      "actual": "645654",
+      "predicted_top1": "943767"
     },
     "top3": {
-      "actual": "224",
+      "actual": "654",
       "rank": "นอก Top 50"
     },
     "top2": {
-      "actual": "24",
-      "rank": 28,
-      "score": 28.19,
+      "actual": "54",
+      "rank": 94,
+      "score": 2.78,
       "in_top3": false
     },
     "bottom2": {
-      "actual": "85",
+      "actual": "06",
       "rank": 5,
-      "score": 39.43,
+      "score": 46.52,
       "in_top3": false
     },
     "front3": {
       "actual": [
-        "300",
-        "950"
+        "101",
+        "938"
       ]
     },
     "last3": {
       "actual": [
-        "393",
-        "804"
+        "106",
+        "782"
       ]
     }
   },
   "history_log": [
-    {
-      "draw_date": "2026-09-01",
-      "draw_date_th": "1 กันยายน 2569",
-      "first_prize": "417212",
-      "top2_actual": "12",
-      "top2_rank": 33,
-      "bottom2_actual": "04",
-      "bottom2_rank": 94
-    },
     {
       "draw_date": "2026-09-16",
       "draw_date_th": "16 กันยายน 2569",
@@ -86,40 +77,49 @@
       "top2_rank": 28,
       "bottom2_actual": "85",
       "bottom2_rank": 5
+    },
+    {
+      "draw_date": "2026-11-16",
+      "draw_date_th": "16 พฤศจิกายน 2569",
+      "first_prize": "645654",
+      "top2_actual": "54",
+      "top2_rank": 94,
+      "bottom2_actual": "06",
+      "bottom2_rank": 5
     }
   ],
   "cold_numbers": {
     "bottom2": [
       {
         "number": "13",
-        "draws_since_last_seen": 398,
+        "draws_since_last_seen": 399,
         "overall_freq": 0
       },
       {
         "number": "41",
-        "draws_since_last_seen": 398,
+        "draws_since_last_seen": 399,
         "overall_freq": 0
       },
       {
         "number": "76",
-        "draws_since_last_seen": 398,
+        "draws_since_last_seen": 399,
         "overall_freq": 0
       }
     ],
     "top2": [
       {
         "number": "13",
-        "draws_since_last_seen": 398,
+        "draws_since_last_seen": 399,
         "overall_freq": 0
       },
       {
         "number": "99",
-        "draws_since_last_seen": 398,
+        "draws_since_last_seen": 399,
         "overall_freq": 0
       },
       {
         "number": "39",
-        "draws_since_last_seen": 390,
+        "draws_since_last_seen": 391,
         "overall_freq": 1
       }
     ]
@@ -134,164 +134,164 @@
   },
   "first_prize": [
     {
-      "number": "943767",
-      "composite_score": 44.2,
+      "number": "915994",
+      "composite_score": 37.16,
+      "front3": "915",
+      "back3": "994",
+      "notes": "หน้า 915 + ท้าย 994"
+    },
+    {
+      "number": "943994",
+      "composite_score": 37.14,
       "front3": "943",
-      "back3": "767",
-      "notes": "หน้า 943 + ท้าย 767"
+      "back3": "994",
+      "notes": "หน้า 943 + ท้าย 994"
     },
     {
-      "number": "340767",
-      "composite_score": 43.29,
-      "front3": "340",
-      "back3": "767",
-      "notes": "หน้า 340 + ท้าย 767"
-    },
-    {
-      "number": "506767",
-      "composite_score": 42.95,
-      "front3": "506",
-      "back3": "767",
-      "notes": "หน้า 506 + ท้าย 767"
+      "number": "915350",
+      "composite_score": 37.11,
+      "front3": "915",
+      "back3": "350",
+      "notes": "หน้า 915 + ท้าย 350"
     }
   ],
   "top3": [
     {
-      "number": "767",
-      "composite_score": 75.0,
-      "day_freq": 2,
-      "seasonal_freq": 0,
-      "overall_freq": 2,
-      "tail_2digit": "67"
-    },
-    {
-      "number": "324",
-      "composite_score": 65.0,
+      "number": "350",
+      "composite_score": 60.0,
       "day_freq": 1,
-      "seasonal_freq": 0,
-      "overall_freq": 3,
-      "tail_2digit": "24"
+      "seasonal_freq": 1,
+      "overall_freq": 1,
+      "tail_2digit": "50"
     },
     {
-      "number": "446",
+      "number": "994",
+      "composite_score": 60.0,
+      "day_freq": 1,
+      "seasonal_freq": 1,
+      "overall_freq": 1,
+      "tail_2digit": "94"
+    },
+    {
+      "number": "519",
       "composite_score": 60.0,
       "day_freq": 2,
       "seasonal_freq": 0,
       "overall_freq": 2,
-      "tail_2digit": "46"
+      "tail_2digit": "19"
     }
   ],
   "top2": [
     {
-      "number": "63",
-      "composite_score": 61.94,
-      "day_freq": 3,
-      "seasonal_freq": 0,
-      "overall_freq": 7,
-      "recent_freq": 1,
-      "digit_sum": 9,
-      "parity": "คู่-คี่",
-      "draws_since_last_seen": 18
-    },
-    {
-      "number": "67",
-      "composite_score": 54.44,
-      "day_freq": 3,
-      "seasonal_freq": 0,
+      "number": "05",
+      "composite_score": 56.11,
+      "day_freq": 1,
+      "seasonal_freq": 2,
       "overall_freq": 7,
       "recent_freq": 0,
-      "digit_sum": 13,
+      "digit_sum": 5,
       "parity": "คู่-คี่",
-      "draws_since_last_seen": 54
+      "draws_since_last_seen": 82
     },
     {
-      "number": "24",
-      "composite_score": 53.06,
-      "day_freq": 2,
-      "seasonal_freq": 0,
-      "overall_freq": 8,
-      "recent_freq": 1,
-      "digit_sum": 6,
-      "parity": "คู่-คู่",
-      "draws_since_last_seen": 1
+      "number": "43",
+      "composite_score": 56.11,
+      "day_freq": 1,
+      "seasonal_freq": 2,
+      "overall_freq": 7,
+      "recent_freq": 0,
+      "digit_sum": 7,
+      "parity": "คู่-คี่",
+      "draws_since_last_seen": 48
+    },
+    {
+      "number": "95",
+      "composite_score": 55.83,
+      "day_freq": 1,
+      "seasonal_freq": 1,
+      "overall_freq": 6,
+      "recent_freq": 2,
+      "digit_sum": 14,
+      "parity": "คี่-คี่",
+      "draws_since_last_seen": 10
     }
   ],
   "bottom2": [
     {
-      "number": "64",
-      "composite_score": 59.47,
-      "day_freq": 2,
+      "number": "43",
+      "composite_score": 50.76,
+      "day_freq": 1,
       "seasonal_freq": 1,
-      "overall_freq": 6,
-      "recent_freq": 2,
-      "digit_sum": 10,
-      "parity": "คู่-คู่",
-      "draws_since_last_seen": 4
+      "overall_freq": 4,
+      "recent_freq": 1,
+      "digit_sum": 7,
+      "parity": "คู่-คี่",
+      "draws_since_last_seen": 14
     },
     {
-      "number": "95",
-      "composite_score": 53.64,
+      "number": "86",
+      "composite_score": 46.36,
       "day_freq": 3,
       "seasonal_freq": 0,
-      "overall_freq": 6,
-      "recent_freq": 1,
+      "overall_freq": 5,
+      "recent_freq": 0,
       "digit_sum": 14,
-      "parity": "คี่-คี่",
-      "draws_since_last_seen": 11
+      "parity": "คู่-คู่",
+      "draws_since_last_seen": 175
     },
     {
-      "number": "57",
-      "composite_score": 50.3,
-      "day_freq": 1,
-      "seasonal_freq": 2,
-      "overall_freq": 6,
-      "recent_freq": 0,
-      "digit_sum": 12,
-      "parity": "คี่-คี่",
-      "draws_since_last_seen": 114
+      "number": "02",
+      "composite_score": 45.91,
+      "day_freq": 0,
+      "seasonal_freq": 1,
+      "overall_freq": 7,
+      "recent_freq": 1,
+      "digit_sum": 2,
+      "parity": "คู่-คู่",
+      "draws_since_last_seen": 21
     }
   ],
   "front3": [
     {
-      "number": "241",
-      "composite_score": 70.0,
-      "day_freq": 2,
-      "seasonal_freq": 1,
-      "overall_freq": 2
-    },
-    {
-      "number": "247",
+      "number": "392",
       "composite_score": 62.5,
       "day_freq": 2,
       "seasonal_freq": 0,
       "overall_freq": 3
     },
     {
-      "number": "983",
+      "number": "512",
       "composite_score": 62.5,
       "day_freq": 2,
       "seasonal_freq": 0,
+      "overall_freq": 3
+    },
+    {
+      "number": "739",
+      "composite_score": 57.5,
+      "day_freq": 1,
+      "seasonal_freq": 1,
       "overall_freq": 3
     }
   ],
   "last3": [
     {
-      "number": "140",
-      "composite_score": 88.0,
+      "number": "834",
+      "composite_score": 74.67,
       "day_freq": 2,
       "seasonal_freq": 1,
       "overall_freq": 3
     },
     {
-      "number": "576",
-      "composite_score": 80.0,
+      "number": "074",
+      "composite_score": 67.33,
       "day_freq": 1,
       "seasonal_freq": 1,
-      "overall_freq": 5
+      "overall_freq": 4
     },
     {
-      "number": "477",
-      "composite_score": 74.0,
+      "number": "421",
+      "composite_score": 67.33,
       "day_freq": 1,
       "seasonal_freq": 1,
       "overall_freq": 4
