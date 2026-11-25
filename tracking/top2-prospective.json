@@ -1,0 +1,48 @@
+{
+  "model_commit": "3947b4e8c8469252e8b887a2ec1f502376430fb6",
+  "target": "first_prize_last_two_digits",
+  "top_k": 3,
+  "base_random_hit_rate": 0.03,
+  "target_hit_rate": 0.1,
+  "milestones": [
+    50,
+    100
+  ],
+  "environment": {
+    "python": "3.12",
+    "pandas": "2.2.3",
+    "numpy": "2.3.5"
+  },
+  "weights": {
+    "without_weekday": {
+      "day": 0,
+      "seasonal": 0.25,
+      "overall": 0.25,
+      "recent": 0.15
+    },
+    "original": {
+      "day": 0.35,
+      "seasonal": 0.25,
+      "overall": 0.25,
+      "recent": 0.15
+    }
+  },
+  "draws": [
+    {
+      "target_date": "2026-12-01",
+      "recorded_on_ict": "2026-11-25",
+      "training_through": "2026-11-16",
+      "without_weekday_top3": [
+        "52",
+        "05",
+        "43"
+      ],
+      "original_top3": [
+        "05",
+        "43",
+        "95"
+      ],
+      "actual_top2": null
+    }
+  ]
+}
